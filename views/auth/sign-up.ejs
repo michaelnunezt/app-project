@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Popup</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <%- include('../partials/_nav') %>
+    <main>
+      <div class="container">
+        <!-- Main content -->
+        <h1>Top Vacation Destinations</h1>
+        <button id="openPopup" class="open-popup-btn">Sign Up</button>
+    </div>
+    <div id="popup" class="popup-overlay">
+      <div class="popup-content">
+          <h2>Sign Up</h2>
+          <p>Sign up to be able to create, share,save and likes on posts.</p>
+
+          <form class="form" action="/auth/sign-up" method="POST">
+              <label for="username">Username</label>
+              <input type="text" name="username" id="username" />
+
+              <label for="email">Email</label>
+              <input type="text" name="email" id="email" />
+
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" />
+
+              <label for="passwordConfirmation">Password Confirmation</label>
+              <input type="password" name="passwordConfirmation" id="passwordConfirmation" />
+
+      <button class="btn" type="submit">Sign up</button>
+    </form>
+    <p>Already have an account? <a class="link" href="/auth/log-in">Log in</a></p>
+    <button id="closePopup" class="close-popup-btn">Close</button>
+   </main>
+  </body>
+</html>

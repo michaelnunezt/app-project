@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Create a Destination</title>
+</head>
+<body>
+  <%- include('../partials/_nav') %>
+  <main>
+   <h1>Add a New Destination</h1>
+     <form action="/destinations" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name"/>
+
+        <label for="country">Country:</label>
+        <input type="checkbox" name="country" id="country" />
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"></textarea>
+
+        <label for="population">Population:</label>
+        <input type="number" name="population" required>>
+
+        <button class="btn" type="submit">Add Destination</button>
+      </form>
+     <a class="link" href="/destinations">Back to Destinations</a>
+  </main>
+ </body>
+</html>

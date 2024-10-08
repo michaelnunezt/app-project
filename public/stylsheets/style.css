@@ -1,0 +1,441 @@
+/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap"); */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+/* Styling the header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: transparent; /* Set this to transparent if you want to show the background image */
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+/* Styling the logo */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* Styling the navigation bar */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* Styling the navigation links */
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+}
+
+nav ul li a:hover {
+  border-bottom: 2px solid white; /* Underline effect on hover */
+}
+
+/* Make the navigation bar fixed */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+
+body {
+  /* background: #fff8ed; */
+  background-image: url(/stylsheets/travel.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100vw; */
+
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  /* color: #769642;
+  font-size: 3.6em;
+  margin-bottom: 1.5rem; */
+  font-size: 3.6em;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  color: white;
+  margin-bottom: 1.25rem;
+}
+
+
+p {
+  /* color: aliceblue;
+  font-size:larger;
+  margin-bottom: 2rem; */
+  font-size: 1.25rem;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.container {
+  text-align: justify;
+  margin-top: 30px;
+}
+
+.open-popup-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup content box */
+.popup-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  color: white;
+}
+
+.popup-content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.popup-content input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+}
+
+.popup-content button {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  width: 100%;
+}
+
+.login-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Close button styles */
+.close-popup-btn {
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.headline {
+  font-size: 2.5em;
+  color: #fff;
+}
+
+.card-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Card styles */
+.card {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 10px;
+  text-align: justify;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .card-grid {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .card {
+      width: 80%;
+      height: auto;
+  }
+}
+
+/* ul {
+  list-style-type: none;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+li {
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+li:hover {
+  transform: scale(1.02);
+} */
+
+/* .event-item {
+  padding: 1rem;
+  text-decoration: none;
+  color: #3498db;
+  font-size: 1.25rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+} */
+
+/* .event-item:hover {
+  color: #2980b9;
+}
+
+a.add-event {
+  display: inline-block;
+  background-color: #3498db;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 2rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+a.add-event:hover {
+  background-color: #2980b9;
+}
+
+.btn {
+  text-decoration: none;
+  background-color: #3498db;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.btn.delete {
+  background-color: tomato;
+}
+.btn.delete:hover {
+  background-color: rgb(215, 71, 45);
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+.event-btns {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.link {
+  color: #3498db;
+}
+
+.link:hover {
+  color: #2980b9;
+}
+
+.form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  height: 150px;
+}
+
+.event-pic2 {
+  display: inline-block;
+  width: 300px;
+  max-width: 50%;
+  margin-bottom: 2rem;
+}
+
+/* Responsive adjustments */
+/* @media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  p {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1rem;
+  } */
+/* } */ 
+
+
+/* footer {
+  font-size: 0.7em;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+/* .fruit-pic1 {
+  height: 30%;
+} */
+
+ /* form {
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #0c3c7bac;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 5px 6px #021021ac;
+  margin: 20px 10px;
+}
+
+.checkbox-div {
+  flex-direction: row;
+}
+
+label,
+input {
+  margin: 10px 2px 0 2px;
+  color: aliceblue;
+}
+
+button {
+  align-self: center;
+  margin: 10px 4px 4px 4px;
+  background-color: #3f6a51;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: none;
+  width: 15em;
+}
+
+button:hover {
+  background-color: #769642;
+}
+
+button:active {
+  background-color: #2d4d3a;
+} */ 

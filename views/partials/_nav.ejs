@@ -1,0 +1,19 @@
+<header>
+  <div class="logo">
+    <a href="/">Travel Project</a>
+  </div>
+  <nav>
+    <a class="link" href="/">Home</a>
+    <a class="link" href="/about">About</a>
+    <a class="link" href="/tour">Tour</a>
+    
+    <% if (user) { %>
+      <!-- If user is signed in, show Sign Out option -->
+      <a class="link" href="/auth/sign-out">Sign Out</a>
+    <% } else { %>
+      <!-- If user is not signed in, show Sign Up option -->
+      <a class="link" href="/auth/sign-up">Sign Up</a>
+    <% } %>
+
+  </nav>
+</header>
