@@ -64,9 +64,9 @@ app.get('/', (req, res) => {
   res.render('index.ejs')
 })
 
-// app.get('/tour', isSignedIn, (req, res) => {
-//   res.send(`Welcome to all Destinations Tour ${req.session.user.username}.`)
-// })
+app.get('/tour', isSignedIn, (req, res) => {
+  res.send(`Welcome to all Destinations Tour ${req.session.user.username}.`)
+})
 
 // * Routers
 app.use('/destinations', destinationsRouter)

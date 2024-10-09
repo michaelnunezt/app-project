@@ -18,6 +18,7 @@ const isLoggedIn = require('../middleware/is-logged-in.js')
 router.get('/', async (req, res) => {
   try {
     const destinations = await Destination.find()
+    console.log(destinations)
     return res.render('destinations/index.ejs', { destinations })
   } catch (error) {
     console.log(error)
@@ -63,7 +64,7 @@ router.post('/', isLoggedIn, async (req, res) => {
 // * Delete Route
 router.delete('/:destinationId', async (req, res) => {
   try {
-    const deletedDestination = await Destination.findByIdAndDelete(req.params.destinationId)
+    const destinationToDelete = await Destination.findByIdAndDelete(req.params.destinationId)
 
     if (destinationToDelete.organiser.equals(req.session.user._id)) {
       const deletedDestination = await Destination.findByIdAndDelete(req.params.eventId)

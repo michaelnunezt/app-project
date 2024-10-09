@@ -7,6 +7,8 @@ const router = express.Router()
 // ! - Model
 const User = require('../models/user.js')
 
+const isLoggedIn = require('../middleware/is-logged-in.js')
+
 // ! Routes/Controllers
 // * Each route is already prepended with `/auth`
 
@@ -21,7 +23,7 @@ router.get('/sign-up', (req, res) => {
 router.post('/sign-up', async (req, res) => {
   try {
     // Check passwords match
-    if (req.body.password !== req.body.confirmPassword) {
+    if (req.body.password !== req.body.passwordConfirmation) {
       return res.status(422).send('The passwords did not match')
     }
 

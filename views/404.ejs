@@ -4,15 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page not found</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/public/stylsheets/style.css">
 </head>
 <body>
   <%- include('./partials/_nav') %>
   <main>
-  <!-- <h1>Uh oh!</h1>
-  <h2>We couldn't find that page!</h2> -->
-  <img class="travel pic" src="stylsheets/images/404 Travel.jpg">
-  <a class="link" href="/destinations">Browse Destinations</a>
+  <style>
+    .error-404-img {
+      max-width: 100%; /* Ensure the image never exceeds the screen width */
+      height: auto; /* Maintain the aspect ratio */
+      display: block;
+      margin: 0 auto; /* Center the image */
+    }
+
+    /* Optionally set a max-width to limit the image size */
+    .error-container {
+      max-width: 1400px; /* Adjust this value to fit the image as needed */
+      margin: 0 auto;
+      text-align: center;
+    }
+  </style>
+  <img class="error-container" src="stylsheets/images/404 Travel.jpg">
+  <a class="link" href="/destinations">Browse Home</a>
   </main>
 </body>
 </html>

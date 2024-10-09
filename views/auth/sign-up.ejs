@@ -3,21 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up Popup</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/stylsheets/style.css">
   </head>
   <body>
     <%- include('../partials/_nav') %>
     <main>
-      <div class="container">
+      <!-- <div class="container"> -->
         <!-- Main content -->
-        <h1>Top Vacation Destinations</h1>
-        <button id="openPopup" class="open-popup-btn">Sign Up</button>
-    </div>
+    <!-- </div> 
     <div id="popup" class="popup-overlay">
-      <div class="popup-content">
+      <div class="popup-content"> -->
           <h2>Sign Up</h2>
-          <p>Sign up to be able to create, share,save and likes on posts.</p>
+          <p>Sign up to be able to create, share and likes on posts.</p>
 
           <form class="form" action="/auth/sign-up" method="POST">
               <label for="username">Username</label>
@@ -35,7 +33,8 @@
       <button class="btn" type="submit">Sign up</button>
     </form>
     <p>Already have an account? <a class="link" href="/auth/log-in">Log in</a></p>
-    <button id="closePopup" class="close-popup-btn">Close</button>
+    <!-- <button id="closePopup" class="close-popup-btn">Close</button> -->
    </main>
+
   </body>
 </html>
