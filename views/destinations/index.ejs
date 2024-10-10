@@ -10,6 +10,9 @@
     <%- include('../partials/_nav') %>
     <main>
     <h1>All Destinations</h1>
+    <% if (message) { %>
+      <p><small class="success"><%= message %></small></p>
+    <% } %>
     <ul>
       <% destinations.forEach(destination => { %>
         <li>

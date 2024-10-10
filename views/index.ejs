@@ -8,7 +8,12 @@
 </head>
 <body>
   <%- include('./partials/_nav') %>
-  <h1>The whole world awaits.</h1>
+  <div class="centred">
+    <% if (user) { %>
+  <h1>The whole world awaits, <%= user.username %>!</h1>
+  <% } else { %>
+    <h1>The whole world awaits!</h1>
+    <% } %>
   <main>
     <div class="container">
       <h1 class="headline">Top Vacation Destinations</h1>
@@ -35,9 +40,20 @@
               <img src="stylsheets/images/Paris.png" alt="Paris, France">
               <div class="card-info">
                   <h2>Paris, France</h2>
-              </div>
-          </div>
-      </div>
-  </div> </main>
+
+                  <% if (user) { %>
+                    <p>
+                      <a class="link" href="/auth/log-out">Log out</a>
+                    </p>
+                  <% } else { %>
+                    <p>
+                      <a class="link" href="/auth/sign-up">Sign up</a> or <a class="link" href="/auth/log-in">Log in</a>
+                    </p>
+                  <% } %>
+                </div>
+            </div>
+        </div>
+    </div> 
+  </main>
 </body>
 </html>

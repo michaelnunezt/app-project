@@ -50,8 +50,269 @@ header {
   width: 100%;
   z-index: 1000;
 }
+/* ------ */
+/* Modal Container */
+.account-modal-container {
+  align-items: center;
+  color: #f7f3e8;
+  display: flex;
+  height: calc(100% - 65px);
+  justify-content: center;
+  left: 0;
+  padding: 1.5rem;
+  position: fixed;
+  right: 0;
+  top: 100vh;
+  transition: top .5s ease-in-out;
+  z-index: 3;
+}
+
+.account-modal-container.open {
+    top: 65px
+}
+
+@media(min-width: 768px) {
+    .account-modal-container.open {
+        top:76.19px
+    }
+}
+
+.account-modal-container .heading-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem
+}
+
+.account-modal-container .heading-container button svg {
+    width: 18px
+}
+
+.account-modal-container .heading-container .h1,.account-modal-container .heading-container h1 {
+    color: inherit;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-align: left
+}
+
+.account-modal-container .welcome-back-container {
+    align-items: center;
+    display: flex;
+    gap: 5px
+}
+
+.account-modal-container .welcome-back-container * {
+    display: inline-block
+}
+
+.account-modal-container .welcome-back-container .lf-player-container {
+    height: 30px
+}
+
+.account-modal-container .form-container {
+    backdrop-filter: blur(7.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    background: rgba(27, 24, 21, 0.747);
+    border-radius: 20px;
+    max-width: 350px;
+    padding: 2rem;
+    width: 100%
+}
+
+.account-modal-container .form-container p {
+    margin: 0
+}
+/* log in  */
+.account-modal-container .form-container p .switch-link {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500
+}
+
+.account-modal-container .form-container ::-webkit-input-placeholder {
+    font-size: .75rem
+}
+
+.account-modal-container .form-container ::placeholder,.account-modal-container .form-container input,.account-modal-container .form-container p {
+    font-size: .75rem
+}
+
+.account-modal-container .form-container form {
+    margin: 1rem 0
+}
+
+.account-modal-container .form-container form div.error {
+    align-items: center;
+    color: #fffffff2;
+    display: flex;
+    gap: 6px;
+    margin: .5rem 0
+}
+
+.account-modal-container .form-container form div.error p {
+    -webkit-transform: translateY(1.5px);
+    transform: translateY(1.5px)
+}
+
+.account-modal-container .form-container form .status-icon-container {
+    display: grid;
+    height: 46px;
+    margin-top: .75rem;
+    place-items: center
+}
+
+.account-modal-container .form-container form .status-icon-container #loading-icon {
+    padding: 5px;
+    width: 30px
+}
+
+.account-modal-container .form-container input {
+    background-color: #ffffffc4;
+    border: none;
+    border-radius: 9px;
+    display: block;
+    font-family: Poppins;
+    padding: .9rem .75rem;
+    width: 100%
+}
+
+.account-modal-container .form-container input:has(+.error) {
+    outline: 1.75px solid #f52828
+}
+
+.account-modal-container .form-container input:not(:last-of-type):not(:has(+.error)) {
+    margin-bottom: .75rem
+}
+
+/* Sign up */
+.account-modal-container .form-container input[type=submit] {
+    background-color: #393735;
+    color: #f7f3e8;
+    cursor: pointer;
+    font-size: .95rem;
+    font-weight: 700
+}
+/* Sign up */
+.account-modal-container .form-container input[type=submit]:hover {
+    background-color: #2b2b2a
+}
+
+.account-modal-container .form-container input::-webkit-input-placeholder {
+    color: rgb(255, 255, 255);
+    font-weight: 300
+}
+/* text inside  */
+.account-modal-container .form-container input::placeholder {
+    color: #010101;
+    font-weight: 300
+}
+
+.account-modal-container .form-container input:focus {
+    outline: none
+}
 
 
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+  cursor: pointer;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+button, select {
+  text-transform: none;
+}
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+button {
+  border-radius: 0;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+*, :after, :before {
+  box-sizing: border-box;
+}
+user agent stylesheet
+button {
+  appearance: auto;
+  text-rendering: auto;
+  color: white;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
+  cursor: default;
+  box-sizing: border-box;
+  margin: 0em;
+  padding-block: 1px;
+  padding-inline: 6px;
+  border-width: 2px;
+  border-style: outset;
+  border-image: initial;
+}
+
+.btn-close {
+  --bs-btn-close-color: #000;
+  --bs-btn-close-bg: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E");
+  --bs-btn-close-opacity: 0.5;
+  --bs-btn-close-hover-opacity: 0.75;
+  --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+  --bs-btn-close-focus-opacity: 1;
+  --bs-btn-close-disabled-opacity: 0.25;
+  --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+  background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
+  border: 0;
+  border-radius: .375rem;
+  box-sizing: initial;
+  height: 1em;
+  opacity: var(--bs-btn-close-opacity);
+  padding: .25em;
+  width: 1em
+}
+
+.btn-close,.btn-close:hover {
+  color: rgb(253, 240, 240);
+}
+
+.btn-close:hover {
+  opacity: var(--bs-btn-close-hover-opacity);
+  text-decoration: none
+}
+
+.btn-close:focus {
+  box-shadow: var(--bs-btn-close-focus-shadow);
+  opacity: var(--bs-btn-close-focus-opacity);
+  outline: 0
+}
+
+.btn-close.disabled,.btn-close:disabled {
+  opacity: var(--bs-btn-close-disabled-opacity);
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none
+}
+
+.btn-close-white,[data-bs-theme=dark] .btn-close {
+  -webkit-filter: var(--bs-btn-close-white-filter);
+  filter: var(--bs-btn-close-white-filter)
+}
+
+/* ----- */
 body {
   /* background: #fff8ed; */
   background-image: url(/stylsheets/travel.jpg);
