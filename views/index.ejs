@@ -14,8 +14,9 @@
   <% } else { %>
     <h1>The whole world awaits!</h1>
     <% } %>
+  </div>
   <main>
-    <div class="container">
+    <div class="card-container">
       <h1 class="headline">Top Vacation Destinations</h1>
       <div class="card-grid">
           <div class="card">
@@ -40,20 +41,17 @@
               <img src="stylsheets/images/Paris.png" alt="Paris, France">
               <div class="card-info">
                   <h2>Paris, France</h2>
-
-                  <% if (user) { %>
-                    <p>
-                      <a class="link" href="/auth/log-out">Log out</a>
-                    </p>
-                  <% } else { %>
-                    <p>
-                      <a class="link" href="/auth/sign-up">Sign up</a> or <a class="link" href="/auth/log-in">Log in</a>
-                    </p>
-                  <% } %>
-                </div>
             </div>
         </div>
     </div> 
   </main>
-</body>
+  <footer class="footer">
+    <div class="social-icons">
+      <a href="#"><img src="stylsheets/images/social_icons/Facebook.png" alt="Facebook" /></a>
+      <a href="#"><img src="stylsheets/images/social_icons/Instagram.png" alt="Instagram" /></a>
+      <a href="#"><img src="stylsheets/images/social_icons/twitter.png" alt="Twitter" /></a>
+      <a href="#"><img src="stylsheets/images/social_icons/youtube.png" alt="YouTube" /></a>
+    </div>
+  </footer>
+ </body>
 </html>

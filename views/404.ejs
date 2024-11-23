@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page not found</title>
-  <link rel="stylesheet" href="/public/stylsheets/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <%- include('./partials/_nav') %>
@@ -23,9 +23,48 @@
       margin: 0 auto;
       text-align: center;
     }
-  </style>
+
+    * {
+  box-sizing: border-box;
+}
+
+
+/* Styling the header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: transparent; /* Set this to transparent if you want to show the background image */
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+/* Styling the logo */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(34, 28, 28);
+  text-decoration: none;
+}
+
+/* Styling the navigation bar */
+nav {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* Styling the navigation links */
+nav a {
+  text-decoration: none;
+  color: rgb(20, 18, 18);
+  font-size: 18px;
+  padding: 10px;
+}  
+   </style>
   <img class="error-container" src="stylsheets/images/404 Travel.jpg">
-  <a class="link" href="/destinations">Browse Home</a>
   </main>
 </body>
 </html>

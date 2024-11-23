@@ -4,98 +4,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= destination.name %></title> <!-- Dynamic title based on destination name -->
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylsheets/style.css">
   </head>
   <body>
     <%- include('../partials/_nav') %>
     <main>
       <h1><%= destination.name %></h1> <!-- Display destination name -->
-
-      <!-- ! Images -->
-      <div class="images">
-        <% destination.images.forEach((image, idx) => { %>
-          <img src="/<%= image %>" alt="<%= destination.name %> display image <%= idx + 1 %>">
-        <% }) %>
-      </div>
-
-      <!-- ! Attendees section -->
-      <h3>Attending</h3>
-      <div class="attending">
-        <span><%= detination.attendees.length %></span>
-        <% if (user) { %>
-
-          <!-- Check if any of the ids in the attendees array match the logged in user is -->
-          <!-- If they do, then display the button that allows a user to delete their id from the array -->
-          <% if (destination.attendees.some(attendee => attendee.equals(user._id))) { %>
-            <form action="/destinations/<%= destination._id %>/attending?_method=DELETE" method="POST">
-              <button class="btn-as-link"><img src="/images/attending.svg" alt="Remove attending status"></button>
-            </form>
-
-          <!-- If they don't appear, then the user is not currently in the attendees array -->
-          <!-- In this case, we'll show the button that allows a user to add their id to the attendees array -->
-          <% } else { %>
-            <form action="/destinations/<%= destination._id %>/attending" method="POST">
-              <button class="btn-as-link"><img src="/images/not-attending.svg" alt="Add attending status"></button>
-            </form>
-          <% } %>
-        <% } %>
-      </div>
+      
+       <!-- ! Images -->
+        <div class="images">
+          <%= destination.images.forEach((image, idx) => { %>
+            <img src="/<%= image %>" alt="<%= destination.city %> display image <%= idx + 1 %>">
+            <% }) %>
+          </div>
 
       <p><%= new Date(destination.date).toDateString() %></p>
       <p><%= destination.description %></p>
       
-      <% if (user !== null && destination.organiser._id.equals(user._id)) { %>
+      <% if (user !== null && destination.user._id.equals(user._id)) { %>
         <p>You own this destination</p>
-        <div class="destination">
+        <div class="destination-btns">
+          
           <!-- Form to delete destination -->
           <form class="btn-form" action="/destinations/<%= destination._id %>?_method=DELETE" method="POST">
-            <button class="btn delete" type="submit">Delete <%= destination.name %></button>
+            <button class="btn delete" type="submit">Delete <%= destination.city %></button>
           </form>
     
           <!-- Link to edit form -->
-          <a class="btn edit" href="/destinations/<%= destination._id %>/edit">Edit <%= destination.name %></a>
+          <a class="btn edit" href="/destinations/<%= destination._id %>/edit">Edit <%= destination.city %></a>
         </div>
       <% } else { %>
-        <p>This is an destination by <%= destination.organiser.username %></p>  
+        <p>This is an destination by <%= destination.user.username %></p>  
       <% } %>
 
-      <!-- Comment Section -->
+
+      <!-- Like Section -->
       <h2>likes</h2>
 
-      <!-- Display Comments -->
-      <% if (destination.likes.length > 0) { %>
-        <div class="likes">
-          <% destination.likes.forEach(like => { %>
-            <div class="like">
-              <p>
-                <strong><%= like.user.username %></strong> <small><%= new Date(like.createdAt).toDateString() %></small><br>
-                <%= like.text %>
-              </p>
-              <% if (user && like.user._id.equals(user._id)) { %>
-                <form action="/destinations/<%= destination._id %>/likes/<%= like._id %>?_method=DELETE" method="POST">
-                  <button type="submit">🗑️</button>
-                </form>
-              <% } %>
-            </div>
-          <% }) %>
-        </div>
-      <% } else { %>
-        <p>There are no likes yet.</p>
-      <% } %>
-
       <!-- Create like -->
-      <% if (user) { %>
+      <%= if (user) { %>
         <form class="form" action="/destinations/<%= destination._id %>/likes" method="POST">
-          <label for="text">Text:</label>
-          <input type="text" name="text" id="text">
-          <% if (message) { %>
+          <label for="like-text">Leave a Comment:</label>
+          <input type="text" name="text" id="like-text" placeholder="Add a short comment (optional)">
+          <%=if (message) { %>
             <p><small class="error"><%= message %></small></p>
-          <% } %> 
-          <button class="btn" type="submit">👍</button>
+          <%= } %>
+          <button class="btn" type="submit">👍 Like</button>
         </form>
-      <% } else { %>
+      <%= } else { %>
         <p><a class="link" href="/auth/log-in">Log in</a> to leave a Like</p>
-      <% } %>
+      <%= } %>
 
       <!-- Link to index -->
       <a class="link" href="/destinations">Back to Destinations</a>

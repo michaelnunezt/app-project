@@ -28,6 +28,8 @@ require('dotenv/config')
 // ! Middleware Functions
 const isSignedIn = require('./middleware/is-logged-in.js')
 const passUserToView = require('./middleware/pass-user-to-view.js')
+const allowErrors = require('./middleware/allow-errors.js')
+const initFlashMessages = require('./middleware/init-flash-messages.js')
 
 
 // * -- Routers/Controllers
@@ -42,6 +44,7 @@ const port = 3000 || process.env.port
 // ! -- Middleware
 app.use(methodOverride('_method')) // this line will convert any request with a ?_method query param into the specified HTTP verb
 app.use(express.urlencoded({ extended: false }))
+app.use('/uploads', express.static('uploads'))
 app.use(express.static('public'))
 app.use(morgan('dev'))
 app.use(session({
@@ -53,8 +56,15 @@ app.use(session({
   })
 }))
 
+// Pass flash messages to the view
+app.use(initFlashMessages)
+
 // Ensure this comes after the session middleware above, as that is where req.session is defined in the first place
 app.use(passUserToView)
+
+// This middleware sets the errors key on the locals object for every single view
+app.use(allowErrors)
+
 
 // ! -- Route Handlers
 
@@ -64,8 +74,8 @@ app.get('/', (req, res) => {
   res.render('index.ejs')
 })
 
-app.get('/tour', isSignedIn, (req, res) => {
-  res.send(`Welcome to all Destinations Tour ${req.session.user.username}.`)
+app.get('/destinations', isSignedIn, (req, res) => {
+  res.send(`Welcome to Destinations ${req.session.user.username}.`)
 })
 
 // * Routers

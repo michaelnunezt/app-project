@@ -1,5 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
+// const = require('../middleware/file-upload.js')
+
 
 // ! -- Router
 const router = express.Router()
@@ -47,7 +49,7 @@ router.post('/sign-up', async (req, res) => {
        })
 
   } catch (error) {
-    console.log(error)
+    console.log(error.errors)
     if (error.code === 11000) {
       const unique = Object.entries(error.keyValue)[0]
       return res.status(422).send(`${unique[0]} "${unique[1]}" already taken`)
@@ -110,6 +112,19 @@ router.get('/log-out', (req, res) => {
     }
     return res.redirect('/')
   })
+})
+
+
+// ! -- Profile Section
+router.get('/profile', isLoggedIn, async (req, res) => {
+  try {
+    const userProfile = await User.findById(req.session.user._id)
+    console.log(userProfile)
+    return res.render('auth/profile.ejs', { profile: userProfile })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send('<h1>An error occurred.</h1>')
+  }
 })
 
 

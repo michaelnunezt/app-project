@@ -9,16 +9,16 @@
   <body>
     <%- include('../partials/_nav') %>
     <main>
-    <h1>Login</h1>
-    <p>Welcome back! 👋 </p>
     <form class="form" action="/auth/log-in" method="POST">
-      <label for="email">Email:</label>
-      <input type="text" name="email" id="email" />
+      <h1>Login</h1>
+      <p>Welcome back! 👋 </p>  
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" />
       <label for="password">Password:</label>
       <input type="password" name="password" id="password" />
       <button class="btn" type="submit">Log in</button>
+      <p>Don't have an account yet? <a class="link" href="/auth/sign-up">Sign up</a></p>
     </form>
-    <p>Don't have an account yet? <a class="link" href="/auth/sign-up">Sign up</a></p>
    </main>
   </body>
 </html>

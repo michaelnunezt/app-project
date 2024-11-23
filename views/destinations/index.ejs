@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Destinations Index</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylsheets/style.css">
   </head>
   <body>
     <%- include('../partials/_nav') %>
@@ -16,7 +16,7 @@
     <ul>
       <% destinations.forEach(destination => { %>
         <li>
-          <a class="destination" href="/destinations/<%=destination._id%>"><%= destination.name %></a>
+          <a class="destination" href="/destinations/<%=destination._id%>"><%= destination.city %></a>
         </li>
       <% }) %>
     </ul>

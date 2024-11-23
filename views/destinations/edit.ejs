@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylsheets/style.css">
   <title>Edit a Destination</title>
 </head>
 <body>
@@ -11,8 +11,8 @@
   <main>
   <h1>Edit a new Destination</h1>
   <form action="/destinations/<%= destination._id %>?_method=PUT" method="POST">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" value="<%= destination.name %>"/>
+    <label for="city">City:</label>
+    <input type="text" name="city" id="city" value="<%= destination.city %>"/>
 
     <label for="country">Country:</label>
     <input type="text" name="country" id="country" value="<%= destination.country %>"/>
@@ -23,12 +23,15 @@
     <label for="population">Population:</label>
     <input type="number" name="population" id="population" value="<%= destination.population %>"/>
 
-    <label for="isPopular">Is Popular?:</label>
-    <input type="checkbox" name="isPopular" id="isPopular" <% if(destinations.isPopular){ %> checked <% } %>/>
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date" value="<%= fieldValues.date %>" required>
+    
+    <label for="images">Images:</label>
+    <input type="file" name="images" id="images" accept="image/*" multiple>
 
-    <button class="btn" type="submit">Edit Planet</button>
+    <button class="btn" type="submit">Edit Destination</button>
+    <a class="link" href="/planets">Back to Destinations</a>
   </form>
-  <a class="link" href="/planets">Back to Planets</a>
   </main>
 </body>
 </html>
