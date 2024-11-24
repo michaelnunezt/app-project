@@ -39,7 +39,7 @@ header {
 }
 
 body {
-  background-image: url(/stylsheets/travel.jpg);
+  background-image: url(/images/travel.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   font-family: 'Arial', sans-serif;
@@ -54,12 +54,14 @@ h1 {
   font-size: 3.6em;
   color: white;
   margin-bottom: 1.5rem;
+  text-align: center;  /* Centers the heading text */
 }
 
 /* text inside the cards */
 h2 {
   color: white;
   margin-bottom: 1.25rem;
+  text-align: center;  /* Centers the subheading text */
 }
 
 
@@ -67,6 +69,7 @@ p {
   font-size: 1.25rem;
   color: white;
   margin-bottom: 2rem;
+  text-align: center;  /* Centers the paragraph text */
 }
 
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour All Destinations</title>
+  <link rel=""stylesheet href="/public/stylsheets/style.css"
+</head>
+<body>
+  <%- include('../partials/_nav') %>
+  <main>
+    <h1>Tour All  Destinations</h1>
+    <div class="filters">
+      <input type="text" placeholder="Country">
+      <input type="text" placeholder="City">
+      <button>Search</button>
+    </div>
+    <section class="destinations-grid">
+      <% cities.forEach(city => { %>
+        <div class="destination-card">
+            <img src="<%= city.image %>" alt="<%= city.name %>">
+            <h2><%= city.name %></h2>
+        </div>
+    <% }); %>
+</section>
+  </main>
+  <footer class="footer">
+    <div class="social-icons">
+      <a href="#"><img src="stylsheets/images/social_icons/Facebook.png" alt="Facebook" /></a>
+      <a href="#"><img src="stylsheets/images/social_icons/Instagram.png" alt="Instagram" /></a>
+      <a href="#"><img src="stylsheets/images/social_icons/twitter.png" alt="Twitter" /></a>
+      <a href="#"><img src="stylsheets/images/social_icons/youtube.png" alt="YouTube" /></a>
+    </div>
+  </footer>
+</body>
+</html>

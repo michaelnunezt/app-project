@@ -12,13 +12,7 @@ const Destination = require('../models/destination.js')
 // ! Middleware Functions
 const isLoggedIn = require('../middleware/is-logged-in.js')
 
-// Example route to render all destinations
-// const allDestinations = (req, res) => {
-//   const message = req.flash('message'); // Example: Using connect-flash for flash messages
-//   res.render('destinations/index', { message }); // Pass the message variable to the EJS template
-// };
-
-
+//--------------------------------------------------------------------------------------------------
 // ! -- Routes
 // * Each route is already prepended with `/destinations`
 
@@ -34,11 +28,12 @@ router.get('/', async (req, res) => {
   }
 })
 
+// * Destinations Page
 router.get('/destinations', async (req, res) => {
   try {
     const destinations = await Destination.find()
     console.log(destinations)
-    return res.render('destinations/index.ejs', { destinations })
+    return res.render('destinations/destinations.ejs', { destinations })
   } catch (error) {
     console.log(error)
     return res.status(500).send('<h1>An error occurred.</h1>')
@@ -46,10 +41,11 @@ router.get('/destinations', async (req, res) => {
 })
 
 
-// New Page (form page)
+// New Page ( Create form Page)
 router.get('/new', isLoggedIn, (req, res) => {
   res.render('destinations/new.ejs')
 })
+
 
 // * Show Page
 router.get('/:destinationId', async (req, res, next) => {
@@ -70,7 +66,7 @@ router.get('/:destinationId', async (req, res, next) => {
   }
 })
 
-// * tour Route
+// * Destinations Page
 router.get('/:destinationId', async (req, res, next) => {
   try {
     if (mongoose.Types.ObjectId.isValid(req.params.destinationId)) {
@@ -110,22 +106,8 @@ router.post('/', isLoggedIn, upload.array('images'), async (req, res) => {
   }
 })
 
-// * Delete Route
-router.delete('/:destinationId', async (req, res) => {
-  try {
-    const destinationToDelete = await Destination.findById(req.params.destinationId)
 
-    if (destinationToDelete.user.equals(req.session.user._id)) {
-      const deletedDestination = await Destination.findByIdAndDelete(req.params.destinationId)
-      return res.redirect('/destinations')
-    }
-    throw new Error('User is not authorised to perform this action')
-
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred.</h1>')
-  }
-})
+// * Update 
 
 router.get('/:destinationId/edit', isLoggedIn, async (req, res, next) => {
   try {
@@ -146,14 +128,16 @@ router.get('/:destinationId/edit', isLoggedIn, async (req, res, next) => {
   }
 })
 
-router.put('/:destinationId', isLoggedIn, async (req, res) => {
+
+
+// * Delete
+router.delete('/:destinationId', async (req, res) => {
   try {
-    const destinationToUpdate = await Destination.findById(req.params.destinationId)
+    const destinationToDelete = await Destination.findById(req.params.destinationId)
 
-    if (destinationToUpdate.user.equals(req.session.user._id)) {
-      const updatedDestination = await Destination.findByIdAndUpdate(req.params.destinationId, req.body, { new: true })
-
-    return res.redirect(`/destinations/${req.params.destinationId}`)
+    if (destinationToDelete.user.equals(req.session.user._id)) {
+      const deletedDestination = await Destination.findByIdAndDelete(req.params.destinationId)
+      return res.redirect('/destinations')
     }
     throw new Error('User is not authorised to perform this action')
 
@@ -163,64 +147,63 @@ router.put('/:destinationId', isLoggedIn, async (req, res) => {
   }
 })
 
-
 // ! Comments Section
 
-// * -- Create Comment
-router.post('/:destinationId/comments', async (req, res, next) => {
-  try {
+// // * -- Create Comment
+// router.post('/:destinationId/comments', async (req, res, next) => {
+//   try {
 
-    // Add signed in user id to the user field
-    req.body.user = req.session.user._id
+//     // Add signed in user id to the user field
+//     req.body.user = req.session.user._id
 
-    // Find the destination that we want to add the comment to
-    const destination = await Destination.findById(req.params.destinationId)
-    if (!destination) return next() // send 404
+//     // Find the destination that we want to add the comment to
+//     const destination = await Destination.findById(req.params.destinationId)
+//     if (!destination) return next() // send 404
 
-    // Push the req.body (new comment) into the comments array
-    destination.comments.push(req.body)
+//     // Push the req.body (new comment) into the comments array
+//     destination.comments.push(req.body)
 
-    // Save the destination we just added the comment to - this will persist to the database
-    await destination.save()
+//     // Save the destination we just added the comment to - this will persist to the database
+//     await destination.save()
 
-    return res.redirect(`/destinations/${req.params.destinationId}`)
-  } catch (error) {
-    req.session.message = error.message
+//     return res.redirect(`/destinations/${req.params.destinationId}`)
+//   } catch (error) {
+//     req.session.message = error.message
 
-    req.session.save(() => {
-      return res.redirect(`/destinations/${req.params.destinationId}`)
-    })
-  }
-})
+//     req.session.save(() => {
+//       return res.redirect(`/destinations/${req.params.destinationId}`)
+//     })
+//   }
+// })
 
-// * -- Delete Comment
-router.delete('/:destinationId/comments/:commentId', isLoggedIn, async (req, res, next) => {
-  try {
-    const destination = await Destination.findById(req.params.destinationId)
-    if (!destination) return next()
+// // * -- Delete Comment
+// router.delete('/:destinationId/comments/:commentId', isLoggedIn, async (req, res, next) => {
+//   try {
+//     const destination = await Destination.findById(req.params.destinationId)
+//     if (!destination) return next()
     
-    // Locate comment to delete
-    const commentToDelete = destination.comments.id(req.params.commentId)
-    if (!commentToDelete) return next()
+//     // Locate comment to delete
+//     const commentToDelete = destination.comments.id(req.params.commentId)
+//     if (!commentToDelete) return next()
 
-    // Ensure user is authorized
-    if (!commentToDelete.user.equals(req.session.user._id)) {
-      throw new Error('User not authorized to perform this action.')
-    }
+//     // Ensure user is authorized
+//     if (!commentToDelete.user.equals(req.session.user._id)) {
+//       throw new Error('User not authorized to perform this action.')
+//     }
     
-    // Delete comment (this does not make a call to the db)
-    commentToDelete.deleteOne()
+//     // Delete comment (this does not make a call to the db)
+//     commentToDelete.deleteOne()
 
-    // Persist changed to database (this does make a call to the db)
-    await destination.save()
+//     // Persist changed to database (this does make a call to the db)
+//     await destination.save()
 
-    // Redirect back to show page
-    return res.redirect(`/destinations/${req.params.destinationId}`)
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred</h1>')
-  }
-})
+//     // Redirect back to show page
+//     return res.redirect(`/destinations/${req.params.destinationId}`)
+//   } catch (error) {
+//     console.log(error)
+//     return res.status(500).send('<h1>An error occurred</h1>')
+//   }
+// })
 
 // ! -- favoriteCities Section
 
@@ -275,5 +258,20 @@ router.delete('/:destinationId/favoriteCities', isLoggedIn, async (req, res, nex
     });
   }
 });
+
+// router.get('/new', isLoggedIn, (req, res) => {
+//   res.render('destinations/new.ejs')
+// })
+
+router.get('/about', (req, res) => {
+  try {
+    res.render('destinations/about.ejs'); // Correct path to the EJS file
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('<h1>Failed to load the About page.</h1>');
+  }
+});
+
+
 
 module.exports = router

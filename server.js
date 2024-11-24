@@ -6,23 +6,6 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 require('dotenv/config')
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   const popup = document.getElementById('popup');
-//   const openPopupBtn = document.getElementById('openPopup');
-//   const closePopupBtn = document.getElementById('closePopup');
-  
-//   // Open popup when button is clicked
-//   openPopupBtn.addEventListener('click', () => {
-//       popup.style.display = 'flex';
-//   });
-  
-
-//    // Close popup when button is clicked
-//    closePopupBtn.addEventListener('click', () => {
-//     popup.style.display = 'none';
-//   });
-// })
-
 
 
 // ! Middleware Functions
@@ -46,6 +29,7 @@ app.use(methodOverride('_method')) // this line will convert any request with a 
 app.use(express.urlencoded({ extended: false }))
 app.use('/uploads', express.static('uploads'))
 app.use(express.static('public'))
+// app.use('/destinations', destinationsRouter) // here in case to test
 app.use(morgan('dev'))
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -74,18 +58,28 @@ app.get('/', (req, res) => {
   res.render('index.ejs')
 })
 
+// * Destinations Page
 app.get('/destinations', isSignedIn, (req, res) => {
-  res.send(`Welcome to Destinations ${req.session.user.username}.`)
+  res.send(`Welcome to your Destinations ${req.session.user.username}.`)
 })
 
 // * Routers
 app.use('/destinations', destinationsRouter)
 app.use('/auth', authRouter)
 
-// ! -- 404
+
+// * About Page 
+app.get('/about', (req, res) => {
+  res.render('destinations/about.ejs');
+}); 
+
+// * 404
 app.get('*', (req, res) => {
   return res.status(404).render('404.ejs')
 })
+
+
+
 
 
 // ! -- Server Connections
