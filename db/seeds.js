@@ -7,15 +7,17 @@ const Destination = require('../models/destination.js')
 const User = require('../models/user.js')
 
 // Data
-const destinationData = require('./data/destination.js')
+const destinationData = require('./data/destinations.js')
 const userData = require('./data/users.js')
 
+ 
 // Run seeds
 const runSeeds = async () => {
   try {
     // Connect to the database
     await mongoose.connect(process.env.MONGODB_URI)
     console.log('🔒 Database connection established')
+    console.log("working")
 
     // Clear existing destinationss
     const deletedDestinations = await Destination.deleteMany()
@@ -30,14 +32,15 @@ const runSeeds = async () => {
     console.log(`👤 ${users.length} users added to the database`)
   
     // Add organiser field to each event using the users array above
-    // const eventsWithOrganisers = eventData.map(event => {
-    //   event.organiser = users[Math.floor(Math.random() * users.length)]._id
-    //   return event
-    // })
+    const destinationsWithOrganisers = destinationData.map(destination => {
+      destination.user = users[Math.floor(Math.random() * users.length)]._id
+      destination.date = new Date ('2024-11-26')
+      return destination
+    })
     
-    // Add new events
-    // const events = await Event.create(eventsWithOrganisers)
-    // console.log(`🌱 ${events.length} event added to the database`)
+    // Add new destinations
+    const destinations = await Destination.create(destinationsWithOrganisers)
+    console.log(`🌱 ${destinations.length} event added to the database`)
 
     // Close connection to the database
     await mongoose.connection.close()

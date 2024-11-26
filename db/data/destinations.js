@@ -3,13 +3,13 @@ module.exports = [
     city: "Rome",
     country: "Italy",
     description: "The capital of Italy, known for its nearly 3,000 years of globally influential art, architecture, and culture.",
-    image: "/images/Rome.jpg",
+    images: "/images/Rome.jpg",
     pointsOfInterest: [
       { name: "Colosseum", type: "Landmark", description: "An ancient amphitheater, the largest ever built, and an iconic symbol of Roman imperial power." },
       { name: "Vatican City", type: "Landmark", description: "The independent city-state that is home to the Pope and St. Peter's Basilica." },
       { name: "Trevi Fountain", type: "Landmark", description: "A world-famous baroque fountain where tradition says throwing a coin will ensure a return to Rome." }
-    ]
-  },
+    ],
+  }, 
   {
     city: "London",
     country: "United Kingdom",

@@ -9,7 +9,7 @@ require('dotenv/config')
 
 
 // ! Middleware Functions
-const isSignedIn = require('./middleware/is-logged-in.js')
+const isLoggedIn = require('./middleware/is-logged-in.js')
 const passUserToView = require('./middleware/pass-user-to-view.js')
 const allowErrors = require('./middleware/allow-errors.js')
 const initFlashMessages = require('./middleware/init-flash-messages.js')
@@ -29,7 +29,6 @@ app.use(methodOverride('_method')) // this line will convert any request with a 
 app.use(express.urlencoded({ extended: false }))
 app.use('/uploads', express.static('uploads'))
 app.use(express.static('public'))
-// app.use('/destinations', destinationsRouter) // here in case to test
 app.use(morgan('dev'))
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -59,13 +58,15 @@ app.get('/', (req, res) => {
 })
 
 // * Destinations Page
-app.get('/destinations', isSignedIn, (req, res) => {
+app.get('/destinations', isLoggedIn, (req, res) => {
   res.send(`Welcome to your Destinations ${req.session.user.username}.`)
 })
 
 // * Routers
 app.use('/destinations', destinationsRouter)
 app.use('/auth', authRouter)
+
+
 
 
 // * About Page 
@@ -77,9 +78,6 @@ app.get('/about', (req, res) => {
 app.get('*', (req, res) => {
   return res.status(404).render('404.ejs')
 })
-
-
-
 
 
 // ! -- Server Connections

@@ -16,10 +16,10 @@
       <button>Search</button>
     </div>
     <section class="destinations-grid">
-      <% cities.forEach(city => { %>
+      <% destinations.forEach(destination => { %>
         <div class="destination-card">
-            <img src="<%= city.image %>" alt="<%= city.name %>">
-            <h2><%= city.name %></h2>
+            <img src="<%= destination.images %>" alt="<%= destination.city %>">
+            <h2><%= destination.city %></h2>
         </div>
     <% }); %>
 </section>

@@ -9,7 +9,7 @@
   <body>
     <%- include('../partials/_nav') %>
     <main>
-      <h1>Create a New Destination</h1>
+      <h1>Create a New Destination!</h1>
       <form class="form" action="/destinations" method="POST" enctype="multipart/form-data">
 
         <label for="city">City:</label>
@@ -31,7 +31,7 @@
         <% } %>
 
         <label for="population">Population:</label>
-        <input type="number" name="population" id="population" value="<%= fieldValues.population %>" required />
+        <input type="number" name="population" id="population" value="<%= fieldValues.population %>" />
         <% if (errors.population) { %>
           <p><small class="error"><%= errors.population.message %></small></p>
         <% } %>
@@ -44,7 +44,8 @@
 
         <label for="images">Images:</label>
         <input type="file" name="images" id="images" accept="image/*" multiple>
-        <button class="btn" type="submit">Add Destination</button>
+
+        <button class="btn" type="submit">Create Destination</button>
         <a class="link" href="/destinations">Back to Destinations</a>
       </form>
   </main>

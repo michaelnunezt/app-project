@@ -2,35 +2,31 @@ const mongoose = require('mongoose')
 
 const destinationSchema = new mongoose.Schema({
   city: { type: String, required: true },
-  country: { type: String, required: true }, // Country of the city
-  description: { type: String }, // Description of the city
-  population: { type: Number }, // Population of the city
-  images: [String],
+  country: { type: String, required: true },
+  description: { type: String },
+  population: { type: Number },
+  date: { type: Date, required: ['Add a date', true] },
+  images: [String], // Allow multiple images
   isPopular: Boolean,
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
-})
-
-const likeSchema = new mongoose.Schema(
-  {
-    user: { 
-      type: mongoose.Types.ObjectId, 
-      ref: 'User', 
-      required: true // Reference to the user who liked 
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  pointsOfInterest: [
+    {
+      name: { type: String, required: true },
+      type: { type: String, required: true }, // e.g., "Landmark", "Museum"
+      description: { type: String, required: true },
     },
-    destination_id: { 
-      type: mongoose.Types.ObjectId, 
-      ref: 'Destination', 
-      required: true // Reference to the liked destination 
-    }
-  },
-  {
-    timestamps: true // Automatically adds createdAt and updatedAt fields
-  }
-);
+  ],
+});
+
+const commentSchema = new mongoose.Schema({
+  text: { type: String, required: true },
+  user: { type: mongoose.Types.ObjectId, ref: 'User', required: true }
+}, {
+  timestamps: true // this option set to true provides a dynamic createdAt and updatedAt field that update automatically
+})
 
 
 const Destination = mongoose.model('Destination', destinationSchema)
-const Likes = mongoose.model('Like', likeSchema)
+const Comment = mongoose.model('Comment', commentSchema)
 
-module.exports = Destination
-module.exports = Likes
+module.exports = Destination, Comment
