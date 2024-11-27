@@ -54,13 +54,25 @@ app.use(allowErrors)
 
 // * Landing Page
 app.get('/', (req, res) => {
-  res.render('index.ejs')
-})
+  if (req.session && req.session.user) {
+    // Se l'utente è loggato, visualizza il file index dentro "destinations"
+    res.render('destinations/index.ejs', { user: req.session.user });
+  } else {
+    // Se l'utente non è loggato, visualizza il file index generico
+    res.render('index.ejs');
+  }
+});
 
 // * Destinations Page
 app.get('/destinations', isLoggedIn, (req, res) => {
   res.send(`Welcome to your Destinations ${req.session.user.username}.`)
 })
+// test
+app.get('/', isLoggedIn, (req,res) => {
+  res.send('views/destinations/index.ejs')
+})
+
+
 
 // * Routers
 app.use('/destinations', destinationsRouter)

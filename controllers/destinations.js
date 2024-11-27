@@ -21,7 +21,7 @@ const isLoggedIn = require('../middleware/is-logged-in.js')
 router.get('/', async (req, res) => {
   try {
     const destinations = await Destination.find()
-    // console.log(destinations)
+    console.log(destinations)
     return res.render('destinations/index.ejs', { destinations })
   } catch (error) {
     console.log(error)

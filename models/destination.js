@@ -6,6 +6,7 @@ const destinationSchema = new mongoose.Schema({
   description: { type: String },
   population: { type: Number },
   date: { type: Date, required: ['Add a date', true] },
+  attendees: [{ type: mongoose.Types.ObjectId, ref: 'User'}],
   images: [String], // Allow multiple images
   isPopular: Boolean,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -29,4 +30,4 @@ const commentSchema = new mongoose.Schema({
 const Destination = mongoose.model('Destination', destinationSchema)
 const Comment = mongoose.model('Comment', commentSchema)
 
-module.exports = Destination, Comment
+module.exports = { Destination, Comment }
