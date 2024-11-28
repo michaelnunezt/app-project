@@ -74,7 +74,7 @@ router.post('/', isLoggedIn, upload.array('images'), async (req, res) => {
     const destination = await Destination.create(req.body)
     req.session.message = 'Destination created successfully'
     req.session.save(() => {
-      return res.redirect('/destinations')
+      return res.redirect('/')
     })
   } catch (error) {
     console.log(error)

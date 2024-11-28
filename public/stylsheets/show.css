@@ -30,14 +30,14 @@ h2, h3 {
 
 p {
   font-size: 1.2em;
-  color: #666;
+  color: #e9e5e5;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
 a {
   text-decoration: none;
-  color: #007BFF;
+  color: #f7f7f7;
 }
 
 a:hover {
@@ -128,60 +128,89 @@ a:hover {
   margin-top: 10px;
 }
 
-/* Comment Section */
-.comments {
-  margin-bottom: 40px;
+/* Comment Section Styles */
+.comments h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #ffffff;
 }
 
-.comment {
-  background-color: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
+.comments .comment {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
 }
 
-.comment p {
-  font-size: 1.1em;
+.comments .comment p {
+  margin: 0;
+  color: #555;
 }
 
-.comment form button {
-  background-color: #FF5C5C;
-  color: white;
-  border: none;
-  padding: 5px 15px;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
+.comments .comment strong {
+  color: #000;
+}
+
+.comments .edit-comment-form,
+.comments .delete-comment-form {
   margin-top: 10px;
 }
 
-.comment form button:hover {
-  background-color: #FF3333;
-}
-
-form textarea {
-  width: 100%;
-  padding: 10px;
-  font-size: 1.1em;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-bottom: 15px;
-  resize: vertical;
-}
-
-form button {
-  background-color: #007BFF;
+.comments button {
+  background: #007bff;
   color: white;
-  padding: 10px 20px;
-  font-size: 1.1em;
-  border-radius: 5px;
   border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
-form button:hover {
-  background-color: #0056b3;
+.comments button:hover {
+  background: #0056b3;
+}
+
+/* Modern Comment Form */
+.modern-comment-form {
+  margin-top: 20px;
+}
+
+.modern-comment-form .form-group {
+  margin-bottom: 15px;
+}
+
+.modern-comment-form textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modern-comment-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.modern-comment-form button {
+  background: linear-gradient(45deg, #212427, #666);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.modern-comment-form button:hover {
+  background: linear-gradient(45deg, #8d8f91, #717579);
+  transform: translateY(-2px);
 }
 
 /* Back Link */
@@ -199,4 +228,27 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+
+/* Back Button Styles */
+.back-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-button {
+  display: inline-block;
+  background: linear-gradient(45deg, #3e3f40, #34393d);
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+  background: linear-gradient(45deg, #8d8f91, #717579);
+  transform: translateY(-2px);
 }

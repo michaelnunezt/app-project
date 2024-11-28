@@ -1,0 +1,194 @@
+* {
+  /* height: 100%; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Styling the navigation bar */
+nav {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* Styling the navigation links */
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+}
+
+/* Styling the logo */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: transparent; /* Set this to transparent if you want to show the background image */
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url('/images/travel.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 350px;
+}
+
+/* Main Form Container */
+main {
+  max-width: 900px;
+  margin: -130px;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+  padding: 100px;
+  border-radius: 50px;
+  height: 123%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px); /* Optional: Adds blur effect behind the form */
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form Fields */
+label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc; /* Light color for labels */
+}
+
+/* Input and Textarea Styling */
+input,
+textarea {
+  padding: 12px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.2); /* Transparent background for inputs */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #355782; /* Blue border on focus */
+  outline: none;
+}
+
+/* Submit Button */
+button {
+  padding: 15px;
+  font-size: 16px;
+  background-color: #25456b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #426086;
+}
+
+/* File Upload Styling */
+input[type="file"] {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Error Messages */
+.error {
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+/* Point of Interest Fieldset */
+fieldset {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background for fieldset */
+}
+
+legend {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Links */
+a.link {
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+  font-size: 19px;
+  margin-top: 20px;
+}
+
+/* a.link:hover {
+  text-decoration: underline;
+} */
+
+/* Button for adding POI */
+#add-poi {
+  background-color: #25456b;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#add-poi:hover {
+  background-color: #426086;
+}
+
+/* Poi Container */
+#poi-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.poi input,
+.poi textarea {
+  background-color: rgba(255, 255, 255, 0.2); /* Same transparent background for Poi fields */
+  border-color: #ddd;
+  color: #fff;
+}

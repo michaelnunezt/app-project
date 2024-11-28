@@ -3,51 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylsheets/style.css">
+  <link rel="stylesheet" href="/stylsheets/new.css">
   <title>Create a Destination</title>
 </head>
-  <body>
-    <%- include('../partials/_nav') %>
-    <main>
-      <h1>Create a New Destination!</h1>
-      <form class="form" action="/destinations" method="POST" enctype="multipart/form-data">
+<body>
+  <%- include('../partials/_nav') %>
+  <main>
+    <h1>Create a New Destination!</h1>
+    <form class="form" action="/destinations" method="POST" enctype="multipart/form-data">
 
-        <label for="city">City:</label>
-        <input type="text" name="city" id="city" value="<%= fieldValues.city %>" required/>
-        <% if (errors.city) { %>
-          <p><small class="error"><%= errors.city.message %></small></p>
-        <% } %>
+      <!-- City Field -->
+      <label for="city">City:</label>
+      <input type="text" name="city" id="city" value="<%= fieldValues.city || '' %>" required />
+      <% if (errors.city) { %>
+        <p><small class="error"><%= errors.city.message %></small></p>
+      <% } %>
 
-        <label for="country">Country:</label>
-        <input type="text" name="country" id="country" value="<%= fieldValues.country %>" required />
-        <% if (errors.country) { %>
-         <p><small class="error"><%= errors.country.message %></small></p>
-        <% } %>
+      <!-- Country Field -->
+      <label for="country">Country:</label>
+      <input type="text" name="country" id="country" value="<%= fieldValues.country || '' %>" required />
+      <% if (errors.country) { %>
+        <p><small class="error"><%= errors.country.message %></small></p>
+      <% } %>
 
-        <label for="description">Description:</label>
-        <textarea name="description" id="description" required><%= fieldValues.description %></textarea>
-        <% if (errors.description) { %>
-          <p><small class="error"><%= errors.description.message %></small></p>
-        <% } %>
+      <!-- Description Field -->
+      <label for="description">Description:</label>
+      <textarea name="description" id="description" required><%= fieldValues.description || '' %></textarea>
+      <% if (errors.description) { %>
+        <p><small class="error"><%= errors.description.message %></small></p>
+      <% } %>
 
-        <label for="population">Population:</label>
-        <input type="number" name="population" id="population" value="<%= fieldValues.population %>" />
-        <% if (errors.population) { %>
-          <p><small class="error"><%= errors.population.message %></small></p>
-        <% } %>
+      <!-- Population Field -->
+      <label for="population">Population:</label>
+      <input type="number" name="population" id="population" value="<%= fieldValues.population || '' %>" />
+      <% if (errors.population) { %>
+        <p><small class="error"><%= errors.population.message %></small></p>
+      <% } %>
 
-        <label for="date">Date:</label>
-        <input type="date" name="date" id="date" value="<%= fieldValues.date %>" required>
-        <% if (errors.date) { %>
-          <p><small class="error"><%= errors.date.message %></small></p>
-        <% } %>
+      <!-- Date Field -->
+      <label for="date">Date:</label>
+      <input type="date" name="date" id="date" value="<%= fieldValues.date || '' %>" required />
+      <% if (errors.date) { %>
+        <p><small class="error"><%= errors.date.message %></small></p>
+      <% } %>
 
-        <label for="images">Images:</label>
-        <input type="file" name="images" id="images" accept="image/*" multiple>
+      <!-- Images Field -->
+      <label for="images">Images:</label>
+      <input type="file" name="images" id="images" accept="image/*" multiple />
+      <% if (errors.images) { %>
+        <p><small class="error"><%= errors.images.message %></small></p>
+      <% } %>
 
-        <button class="btn" type="submit">Create Destination</button>
-        <a class="link" href="/">Back to Destinations</a>
-      </form>
+      <!-- Points of Interest -->
+      <fieldset>
+        <legend>Points of Interest</legend>
+        <div id="poi-container">
+          <% (fieldValues.pointsOfInterest || []).forEach((poi, index) => { %>
+            <div class="poi">
+              <label for="poi-name-<%= index %>">Name:</label>
+              <input type="text" name="pointsOfInterest[<%= index %>][name]" id="poi-name-<%= index %>" value="<%= poi.name %>" required />
+
+              <label for="poi-description-<%= index %>">Description:</label>
+              <textarea name="pointsOfInterest[<%= index %>][description]" id="poi-description-<%= index %>" required><%= poi.description %></textarea>
+            </div>
+          <% }) %>
+        </div>
+        <button type="button" id="add-poi" class="btn">Add Point of Interest</button>
+      </fieldset>
+
+      <!-- Submit Button -->
+      <button class="btn" type="submit">Create Destination</button>
+      <a class="link" href="/">Back to Destinations</a>
+    </form>
   </main>
- </body>
-</html> 
+
+  <!-- Script to Dynamically Add Points of Interest -->
+  <script>
+    const poiContainer = document.getElementById('poi-container');
+    const addPoiButton = document.getElementById('add-poi');
+
+    addPoiButton.addEventListener('click', () => {
+      const index = poiContainer.children.length;
+      const poiHtml = `
+        <div class="poi">
+          <label for="poi-name-${index}">Name:</label>
+          <input type="text" name="pointsOfInterest[${index}][name]" id="poi-name-${index}" required />
+
+          <label for="poi-description-${index}">Description:</label>
+          <textarea name="pointsOfInterest[${index}][description]" id="poi-description-${index}" required></textarea>
+        </div>
+      `;
+      poiContainer.insertAdjacentHTML('beforeend', poiHtml);
+    });
+  </script>
+</body>
+</html>

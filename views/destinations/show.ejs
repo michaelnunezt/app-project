@@ -39,53 +39,49 @@
         </div>
       </section>
 
-      <!-- Attendees Section -->
-      <section class="attendees">
-        <h3>Attendees</h3>
-        <p><%= destination.attendees.length %> people attending</p>
-        <% if (user) { %>
-          <form action="/destinations/<%= destination._id %>/attending?_method=<%= destination.attendees.some(a => a.equals(user._id)) ? 'DELETE' : 'POST' %>" method="POST">
-            <button><%= destination.attendees.some(a => a.equals(user._id)) ? 'Leave' : 'Join' %> this destination</button>
-          </form>
-        <% } else { %>
-          <p><a href="/auth/log-in">Log in</a> to join this destination.</p>
-        <% } %>
-      </section>
+<!-- attendees is in my note -->
 
-      <!-- Comment Section -->
-      <section class="comments">
-        <h2>Comments</h2>
-        <% if (comments.length) { %>
-          <% comments.forEach(comment => { %>
-            <div class="comment">
-              <p>
-                <strong><%= comment.user.username %>:</strong> <%= comment.text %> 
-                <small>(<%= new Date(comment.createdAt).toLocaleDateString() %>)</small>
-              </p>
-              <% if (user && comment.user._id.equals(user._id)) { %>
-                <form action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                  <button type="submit">Delete</button>
-                </form>
-              <% } %>
-            </div>
-          <% }) %>
-        <% } else { %>
-          <p>No comments yet. Be the first to comment!</p>
-        <% } %>
-        
-        <!-- Comment Form -->
-        <% if (user) { %>
-          <form action="/destinations/<%= destination._id %>/comments" method="POST">
-            <textarea name="text" required placeholder="Write a comment..."></textarea>
-            <button type="submit">Submit</button>
-          </form>
-        <% } else { %>
-          <p><a href="/auth/log-in">Log in</a> to comment.</p>
-        <% } %>
-      </section>
+  <!-- Comments Section -->
+<section class="comments card">
+  <h2>Comments</h2>
+  <!-- Modern Comment Form -->
+  <form class="modern-comment-form" action="/destinations/<%= destination._id %>/comments" method="POST">
+    <div class="form-group">
+      <textarea name="text" required placeholder="Add a comment..." rows="3"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
 
-      <!-- Back Link -->
-      <p><a href="/">Back to Destinations</a></p>
+  <% if (comments.length) { %>
+    <% comments.forEach(comment => { %>
+      <div class="comment">
+        <p>
+          <strong><%= comment.user.username %>:</strong> <%= comment.text %>
+          <small>(<%= new Date(comment.createdAt).toLocaleDateString() %>)</small>
+        </p>
+        <% if (comment.user._id.equals(user._id)) { %>
+          <!-- Edit Comment Form -->
+          <form class="edit-comment-form" action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+            <textarea name="text" required><%= comment.text %></textarea>
+            <button type="submit">Edit</button>
+          </form>
+          <!-- Delete Comment Form -->
+          <form class="delete-comment-form" action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p>No comments yet.</p>
+  <% } %>
+
+</section>
+
+<!-- Back Button -->
+<div class="back-button-container">
+  <a href="/" class="back-button">Back to Destinations</a>
+</div>
     </main>
   </body>
 </html>
