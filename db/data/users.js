@@ -7,6 +7,12 @@ module.exports = [
     password: bcrypt.hashSync('pass', 10),
     passwordConfirmation: bcrypt.hashSync('pass', 10)
   },
+  {
+    email: 'michael@email.com',
+    username: 'michael',
+    password: bcrypt.hashSync('pass', 10),
+    passwordConfirmation: bcrypt.hashSync('pass', 10)
+  },
 ]
 //   {
 //     username: 'sam',

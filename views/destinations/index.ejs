@@ -6,21 +6,37 @@
     <title>Destinations Index</title>
     <link rel="stylesheet" href="stylsheets/style.css">
   </head>
+  <%- include('../partials/_nav') %>
   <body>
-    <%- include('../partials/_nav') %>
+    <div class="centred">
+      <% if (user) { %>
+        <h1>The whole world awaits, <%= user.username %>!</h1>
+      <% } else { %>
+        <h1>The whole world awaits!</h1>
+      <% } %>
+    </div>
     <main>
-    <h1>All Destinations</h1>
-    <% if (message) { %>
-      <p><small class="success"><%= message %></small></p>
-    <% } %>
-    <ul>
-      <% destinations.forEach(destination => { %>
-        <li>
-          <a class="destination-item" href="/destinations/<%=destination._id%>"><%= destination.city %></a>
-        </li>
-      <% }) %>
-    </ul>
-    <a class="btn" href="/destinations/new">Add New Destination</a>
-  </main>
+      <div class="card-container">
+        <h1 class="headline">Top Vacation Destinations</h1>
+        <div class="card-grid">
+          <% destinations.forEach(destination => { %>
+            <div class="card">
+              <img src="<%= destination.images %>" alt="<%= destination.city %>, <%= destination.country %>">
+              <div class="card-info">
+                <h2><%= destination.city %>, <%= destination.country %></h2>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="#"><img src="/images/social_icons/Facebook.png" alt="Facebook" /></a>
+        <a href="#"><img src="/images/social_icons/Instagram.png" alt="Instagram" /></a>
+        <a href="#"><img src="/images/social_icons/twitter.png" alt="Twitter" /></a>
+        <a href="#"><img src="/images/social_icons/youtube.png" alt="YouTube" /></a>
+      </div>
+    </footer>
   </body>
-</html>
+  </html>

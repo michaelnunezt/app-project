@@ -17,12 +17,13 @@ const isLoggedIn = require('../middleware/is-logged-in.js')
 // ! -- Routes
 // * Each route is already prepended with `/destinations`
 
-// * Index Route
+// * Index Route work here the user index
 router.get('/', async (req, res) => {
   try {
+    console.log('Alberto')
     const destinations = await Destination.find()
     console.log(destinations)
-    return res.render('destinations/index.ejs', { destinations })
+    // return res.render('destinations/index.ejs', { destinations })
   } catch (error) {
     console.log(error)
     return res.status(500).send('<h1>An error occurred.</h1>')

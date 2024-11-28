@@ -18,6 +18,7 @@ const initFlashMessages = require('./middleware/init-flash-messages.js')
 // * -- Routers/Controllers
 const destinationsRouter = require('./controllers/destinations.js')
 const authRouter = require('./controllers/auth.js')
+const { Destination } = require('./models/destination.js')
 
 
 // ! -- Variables
@@ -53,10 +54,12 @@ app.use(allowErrors)
 
 
 // * Landing Page
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   if (req.session && req.session.user) {
     // Se l'utente è loggato, visualizza il file index dentro "destinations"
-    res.render('destinations/index.ejs', { user: req.session.user });
+    console.log('working')
+    const destinations = await Destination.find()
+    res.render('destinations/index.ejs', { user: req.session.user, destinations: destinations });
   } else {
     // Se l'utente non è loggato, visualizza il file index generico
     res.render('index.ejs');
@@ -64,9 +67,9 @@ app.get('/', (req, res) => {
 });
 
 // * Destinations Page
-app.get('/destinations', isLoggedIn, (req, res) => {
-  res.send(`Welcome to your Destinations ${req.session.user.username}.`)
-})
+// app.get('/destinations', isLoggedIn, (req, res) => {
+//   res.send(`Welcome to your Destinations ${req.session.user.username}.`)
+// })
 // test
 app.get('/', isLoggedIn, (req,res) => {
   res.send('views/destinations/index.ejs')

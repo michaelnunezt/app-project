@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 require('dotenv/config')
 
 // Models
-const Destination = require('../models/destination.js')
+const { Destination } = require('../models/destination.js')
 const User = require('../models/user.js')
 
 // Data
