@@ -13,7 +13,6 @@ const destinationSchema = new mongoose.Schema({
   pointsOfInterest: [
     {
       name: { type: String, required: true },
-      type: { type: String, required: true }, // e.g., "Landmark", "Museum"
       description: { type: String, required: true },
     },
   ],
@@ -21,7 +20,8 @@ const destinationSchema = new mongoose.Schema({
 
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  user: { type: mongoose.Types.ObjectId, ref: 'User', required: true }
+  user: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
+  destination: { type: mongoose.Types.ObjectId, ref: 'Destination', required: true },
 }, {
   timestamps: true // this option set to true provides a dynamic createdAt and updatedAt field that update automatically
 })

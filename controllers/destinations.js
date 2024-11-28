@@ -7,7 +7,8 @@ const upload = require('../middleware/file-upload.js')
 const router = express.Router()
 
 // ! -- Model
-const Destination = require('../models/destination.js')
+const { Destination, Comment  }  = require('../models/destination.js')
+console.log('Destination Model:', Destination);
 
 // ! Middleware Functions
 const isLoggedIn = require('../middleware/is-logged-in.js')
@@ -30,18 +31,6 @@ router.get('/', async (req, res) => {
   }
 })
 
-// * Destinations Page
-// router.get('/destinationsId', async (req, res) => {
-//   try {
-//     const destinations = await Destination.find()
-//     console.log(destinations)
-//     return res.render('destinations/destinations.ejs', { destinations })
-//   } catch (error) {
-//     console.log(error)
-//     return res.status(500).send('<h1>An error occurred.</h1>')
-//   }
-// })
-
 
 // New Page ( Create form Page)
 router.get('/new', isLoggedIn, (req, res) => {
@@ -52,19 +41,27 @@ router.get('/new', isLoggedIn, (req, res) => {
 // * Show Destinations Page
 router.get('/:destinationId', async (req, res, next) => {
   try {
+    // Check if the destinationId is valid
     if (mongoose.Types.ObjectId.isValid(req.params.destinationId)) {
-      const destination = await Destination.findById(req.params.destinationId).populate('organiser').populate('comments.user')
-      console.log(destination)
-      if (!destination) return next()
-      return res.render('destinations/show.ejs', { destination })
+      // Find the destination by ID and populate the 'user' (organizer)
+      const destination = await Destination.findById(req.params.destinationId)
+        .populate('user'); // Populate the 'user' field for the destination (organizer)
+      
+      // Fetch the comments for this destination and populate the 'user' for each comment
+      const comments = await Comment.find({ destination: req.params.destinationId })
+        .populate('user'); // Populate the 'user' field for each comment
+
+      if (!destination) return next(); // Handle not found destination
+      return res.render('destinations/show.ejs', { destination, comments, user: req.user });
     } else {
-      next()
+      return next(); // Invalid ID
     }
   } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred.</h1>')
+    console.error(error);
+    return res.status(500).send('<h1>An error occurred.</h1>');
   }
-})
+});
+
 
 
 // * Create Route

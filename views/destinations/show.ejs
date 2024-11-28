@@ -3,104 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= destination.city %></title> <!-- Dynamic title based on destination name -->
-    <link rel="stylesheet" href="/stylsheets/style.css">
+    <title><%= destination.city %> - Details</title>
+    <link rel="stylesheet" href="/stylsheets/show.css" />
   </head>
   <body>
-    <%- include('../partials/_nav') %>
     <main>
-      <h1><%= destination.city %></h1> <!-- Display destination name -->
-      
-       <!-- ! Images -->
-        <!-- <div class="images">
-          <%= destination.images.forEach((image, idx) => { %>
-            <img src="/<%= image %>" alt="<%= destination.city %> display image <%= idx + 1 %>">
-            <% }) %>
-          </div>
-                <!-- ! Attendees section -->
-      <h3>Attending</h3>
-      <div class="attending">
-        <span><%= destination.attendees.length %></span>
-        <% if (user) { %>
+      <!-- Destination Title -->
+      <h1><%= destination.city %>, <%= destination.country %></h1>
 
-          <!-- Check if any of the ids in the attendees array match the logged in user is -->
-          <!-- If they do, then display the button that allows a user to delete their id from the array -->
-          <% if (destination.attendees.some(attendee => attendee.equals(user._id))) { %>
-            <form action="/destinations/<%= destination._id %>/attending?_method=DELETE" method="POST">
-              <button class="btn-as-link"><img src="/images/attending.svg" alt="Remove attending status"></button>
-            </form>
-
-          <!-- If they don't appear, then the user is not currently in the attendees array -->
-          <!-- In this case, we'll show the button that allows a user to add their id to the attendees array -->
-          <% } else { %>
-            <form action="/destinations/<%= destination._id %>/attending" method="POST">
-              <button class="btn-as-link"><img src="/images/not-attending.svg" alt="Add attending status"></button>
-            </form>
-          <% } %>
+      <!-- City Image (Centered) -->
+      <div class="city-image">
+        <% if (destination.images.length) { %>
+          <img src="<%= destination.images[0] %>" alt="Image of <%= destination.city %>" />
+        <% } else { %>
+          <p>No image available for this destination.</p>
         <% } %>
       </div>
 
-      <p><%= new Date(destination.date).toDateString() %></p>
-      <p><%= destination.description %></p>
-      
-      <% if (user !== null && destination.organiser._id.equals(user._id)) { %>
-        <p>You own this destination</p>
-        <div class="destination-btns">
-          
-          <!-- Form to delete destination -->
-          <form class="btn-form" action="/destinations/<%= destination._id %>?_method=DELETE" method="POST">
-            <button class="btn delete" type="submit">Delete <%= destination.city %></button>
-          </form>
-    
-          <!-- Link to edit form -->
-          <a class="btn edit" href="/destinations/<%= destination._id %>/edit">Edit <%= destination.city %></a>
-        </div>
-      <% } else { %>
-        <p>This is an destination by <%= destination.organiser.username %></p>  
-      <% } %>
+      <!-- Description Section -->
+      <section class="description">
+        <h2>Description</h2>
+        <p><%= destination.description %></p>
+      </section>
 
+      <!-- Points of Interest Cards -->
+      <section class="points-of-interest">
+        <h2>Points of Interest</h2>
+        <div class="poi-cards">
+          <% destination.pointsOfInterest.forEach((poi) => { %>
+            <div class="poi-card">
+              <h3><%= poi.name %> <%= poi.type %></h3>
+              <p><%= poi.description %></p>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+
+      <!-- Attendees Section -->
+      <section class="attendees">
+        <h3>Attendees</h3>
+        <p><%= destination.attendees.length %> people attending</p>
+        <% if (user) { %>
+          <form action="/destinations/<%= destination._id %>/attending?_method=<%= destination.attendees.some(a => a.equals(user._id)) ? 'DELETE' : 'POST' %>" method="POST">
+            <button><%= destination.attendees.some(a => a.equals(user._id)) ? 'Leave' : 'Join' %> this destination</button>
+          </form>
+        <% } else { %>
+          <p><a href="/auth/log-in">Log in</a> to join this destination.</p>
+        <% } %>
+      </section>
 
       <!-- Comment Section -->
-      <h2>Comments</h2>
-
-      <!-- Display Comments -->
-      <% if (destination.comments.length > 0) { %>
-        <div class="comments">
-          <% destination.comments.forEach(comment => { %>
+      <section class="comments">
+        <h2>Comments</h2>
+        <% if (comments.length) { %>
+          <% comments.forEach(comment => { %>
             <div class="comment">
               <p>
-                <strong><%= comment.user.username %></strong> <small><%= new Date(comment.createdAt).toDateString() %></small><br>
-                <%= comment.text %>
+                <strong><%= comment.user.username %>:</strong> <%= comment.text %> 
+                <small>(<%= new Date(comment.createdAt).toLocaleDateString() %>)</small>
               </p>
               <% if (user && comment.user._id.equals(user._id)) { %>
                 <form action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                  <button type="submit">🗑️</button>
+                  <button type="submit">Delete</button>
                 </form>
               <% } %>
             </div>
           <% }) %>
-        </div>
-      <% } else { %>
-        <p>There are no comments yet.</p>
-      <% } %>
+        <% } else { %>
+          <p>No comments yet. Be the first to comment!</p>
+        <% } %>
+        
+        <!-- Comment Form -->
+        <% if (user) { %>
+          <form action="/destinations/<%= destination._id %>/comments" method="POST">
+            <textarea name="text" required placeholder="Write a comment..."></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        <% } else { %>
+          <p><a href="/auth/log-in">Log in</a> to comment.</p>
+        <% } %>
+      </section>
 
-      <!-- Create Comment -->
-      <% if (user) { %>
-        <form class="form" action="/destinations/<%= destination._id %>/comments" method="POST">
-          <label for="text">Text:</label>
-          <input type="text" name="text" id="text">
-          <% if (message) { %>
-            <p><small class="error"><%= message %></small></p>
-          <% } %> 
-          <button class="btn" type="submit">Add Comment</button>
-        </form>
-      <% } else { %>
-        <p><a class="link" href="/auth/log-in">Sign in</a> to leave a comment</p>
-      <% } %>
-
-
-      <!-- Link to index -->
-      <a class="link" href="/destinations">Back to Destinations</a> -->
+      <!-- Back Link -->
+      <p><a href="/">Back to Destinations</a></p>
     </main>
   </body>
 </html>

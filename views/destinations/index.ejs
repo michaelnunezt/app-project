@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Destinations Index</title>
-    <link rel="stylesheet" href="stylsheets/style.css">
+    <link rel="stylesheet" href="/stylsheets/index.css">
   </head>
   <%- include('../partials/_nav') %>
   <body>
@@ -18,15 +18,25 @@
     <main>
       <div class="card-container">
         <h1 class="headline">Top Vacation Destinations</h1>
-        <div class="card-grid">
-          <% destinations.forEach(destination => { %>
-            <div class="card">
-              <img src="<%= destination.images %>" alt="<%= destination.city %>, <%= destination.country %>">
-              <div class="card-info">
-                <h2><%= destination.city %>, <%= destination.country %></h2>
-              </div>
-            </div>
-          <% }) %>
+        <!-- Carousel Container -->
+        <div class="carousel-container">
+          <div class="card-grid">
+            <% destinations.forEach(destination => { %>
+              <a href="/destinations/<%= destination._id %>" class="card-link">
+                <div class="card">
+                  <img src="<%= destination.images[0] %>" alt="<%= destination.city %>, <%= destination.country %>">
+                  <div class="card-info">
+                    <h2><%= destination.city %>, <%= destination.country %></h2>
+                  </div>
+                </div>
+              </a>
+            <% }) %>
+          </div>
+        </div>
+        <!-- Navigation Buttons -->
+        <div class="carousel-nav">
+          <button id="prevBtn">Prev</button>
+          <button id="nextBtn">Next</button>
         </div>
       </div>
     </main>
@@ -38,5 +48,45 @@
         <a href="#"><img src="/images/social_icons/youtube.png" alt="YouTube" /></a>
       </div>
     </footer>
+
+    <script>
+      // Carousel functionality for manual scrolling
+      let currentIndex = 0;
+      const cards = document.querySelectorAll('.card');
+      const totalCards = cards.length;
+      const cardWidth = cards[0].offsetWidth + 20; // Width of each card + margin
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const cardGridContainer = document.querySelector('.card-grid');
+
+      function updateCarousel() {
+        cardGridContainer.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < totalCards - 5) {
+          currentIndex++;
+          updateCarousel();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+        }
+      });
+
+      // Optional: Auto-scroll functionality every 5 seconds
+      setInterval(() => {
+        if (currentIndex < totalCards - 5) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
+        updateCarousel();
+      }, 3000);
+    </script>
   </body>
-  </html>
+</html>
