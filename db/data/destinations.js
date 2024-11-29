@@ -3,7 +3,7 @@ module.exports = [
     city: "Rome",
     country: "Italy",
     description: "The capital of Italy, known for its nearly 3,000 years of globally influential art, architecture, and culture.",
-    images: "https://i.natgeofe.com/n/3012ffcc-7361-45f6-98b3-a36d4153f660/colosseum-daylight-rome-italy.jpg?w=1280&h=853",
+    images: "/images/Rome.jpg",
     pointsOfInterest: [
       { name: "Colosseum", description: "An ancient amphitheater, the largest ever built, and an iconic symbol of Roman imperial power." },
       { name: "Vatican City", description: "The independent city-state that is home to the Pope and St. Peter's Basilica." },

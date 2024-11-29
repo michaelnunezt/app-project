@@ -41,21 +41,30 @@ router.get('/new', isLoggedIn, (req, res) => {
 // * Show Destinations Page
 router.get('/:destinationId', async (req, res, next) => {
   try {
-    // Check if the destinationId is valid
-    if (mongoose.Types.ObjectId.isValid(req.params.destinationId)) {
-      // Find the destination by ID and populate the 'user' (organizer)
-      const destination = await Destination.findById(req.params.destinationId)
-        .populate('user'); // Populate the 'user' field for the destination (organizer)
-      
-      // Fetch the comments for this destination and populate the 'user' for each comment
-      const comments = await Comment.find({ destination: req.params.destinationId })
-        .populate('user'); // Populate the 'user' field for each comment
+    const { destinationId } = req.params;
 
-      if (!destination) return next(); // Handle not found destination
-      return res.render('destinations/show.ejs', { destination, comments, user: req.user });
-    } else {
-      return next(); // Invalid ID
+    // Validate the destination ID
+    if (!mongoose.Types.ObjectId.isValid(destinationId)) {
+      return next(); // Invalid ID, proceed to 404 handler
     }
+
+    // Fetch the destination and populate the 'user' field
+    const destination = await Destination.findById(destinationId).populate('user');
+
+    if (!destination) {
+      return next(); // Destination not found
+    }
+
+    // Fetch comments for the destination and populate the 'user' for each comment
+    const comments = await Comment.find({ destination: destinationId })
+      .populate('user', 'username'); // Only populate the 'username' field
+
+    // Render the destination show page
+    return res.render('destinations/show.ejs', {
+      destination,
+      comments,
+      user: req.session.user, // Pass the logged-in user from session
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).send('<h1>An error occurred.</h1>');
@@ -63,14 +72,14 @@ router.get('/:destinationId', async (req, res, next) => {
 });
 
 
-
 // * Create Route
 router.post('/', isLoggedIn, upload.array('images'), async (req, res) => {
   try {
+    console.log('Session User:', req.session.user)
     if (req.files) {
       req.body.images = req.files.map(file => file.path)
     }
-    req.body.organiser = req.session.user._id // Add the user ObjectId using the authenticated user's _id (from the session)
+    req.body.user = req.session.user._id // Add the user ObjectId using the authenticated user's _id (from the session)
     const destination = await Destination.create(req.body)
     req.session.message = 'Destination created successfully'
     req.session.save(() => {
@@ -144,29 +153,53 @@ router.delete('/:destinationId', async (req, res) => {
 // * -- Create Comment
 router.post('/:destinationId/comments', async (req, res, next) => {
   try {
+    // Verifica che l'utente sia loggato
+    if (!req.session.user) {
+      req.session.message = 'You must be logged in to comment';
+      return res.redirect('/log-in');
+    }
 
-    // Add signed in user id to the user field
-    req.body.user = req.session.user._id
+    // Aggiungi l'ID dell'utente al corpo della richiesta
+    req.body.user = req.session.user._id;
+    
+    // Validazione del testo del commento
+    if (!req.body.text || req.body.text.trim() === '') {
+      req.session.message = 'Comment text cannot be empty';
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    }
+    if (req.body.text.length > 500) {
+      req.session.message = 'Comment text is too long';
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    }
 
-    // Find the destination that we want to add the comment to
-    const destination = await Destination.findById(req.params.destinationId)
-    if (!destination) return next() // send 404
+    // Trova la destinazione
+    const destination = await Destination.findById(req.params.destinationId);
+    if (!destination) {
+      console.warn(`Destination with ID ${req.params.destinationId} not found.`);
+      req.session.message = 'Destination not found';
+      return next();
+    }
 
-    // Push the req.body (new comment) into the comments array
-    destination.comments.push(req.body)
+    // Crea il commento
+    await Comment.create({
+      text: req.body.text,
+      user: req.body.user,
+      destination: destination._id,
+    });
 
-    // Save the destination we just added the comment to - this will persist to the database
-    await destination.save()
-
-    return res.redirect(`/destinations/${req.params.destinationId}`)
-  } catch (error) {
-    req.session.message = error.message
-
+    // Redirect alla pagina della destinazione
+    req.session.message = 'Comment added successfully!';
     req.session.save(() => {
-      return res.redirect(`/destinations/${req.params.destinationId}`)
-    })
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    });
+  } catch (error) {
+    console.error('Error creating comment:', error.message);
+    req.session.message = 'An unexpected error occurred. Please try again.';
+    req.session.save(() => {
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    });
   }
-})
+});
 
 // * -- Delete Comment
 router.delete('/:destinationId/comments/:commentId', isLoggedIn, async (req, res, next) => {

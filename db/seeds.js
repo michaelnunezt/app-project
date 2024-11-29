@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 require('dotenv/config')
 
 // Models
-const { Destination } = require('../models/destination.js')
+const { Destination, Comment } = require('../models/destination.js')
 const User = require('../models/user.js')
 
 // Data
@@ -20,8 +20,8 @@ const runSeeds = async () => {
     console.log("working")
 
     // Clear existing destinationss
-    const deletedDestinations = await Destination.deleteMany()
-    console.log(`❌ ${deletedDestinations.deletedCount} destinations deleted from the database`)
+    // const deletedDestinations = await Destination.deleteMany()
+    // console.log(`❌ ${deletedDestinations.deletedCount} destinations deleted from the database`)
 
     // Clear existing users
     const deletedUsers = await User.deleteMany()

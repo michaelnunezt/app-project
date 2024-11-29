@@ -41,13 +41,20 @@
 
 <!-- attendees is in my note -->
 
-  <!-- Comments Section -->
+<!-- Comments Section -->
 <section class="comments card">
   <h2>Comments</h2>
-  <!-- Modern Comment Form -->
+
+  <!-- Comment Form -->
   <form class="modern-comment-form" action="/destinations/<%= destination._id %>/comments" method="POST">
     <div class="form-group">
-      <textarea name="text" required placeholder="Add a comment..." rows="3"></textarea>
+      <textarea 
+        name="text" 
+        required 
+        placeholder="Add a comment..." 
+        rows="3" 
+        aria-label="Add a comment">
+      </textarea>
     </div>
     <button type="submit">Submit</button>
   </form>
@@ -55,28 +62,65 @@
   <% if (comments.length) { %>
     <% comments.forEach(comment => { %>
       <div class="comment">
-        <p>
-          <strong><%= comment.user.username %>:</strong> <%= comment.text %>
-          <small>(<%= new Date(comment.createdAt).toLocaleDateString() %>)</small>
-        </p>
-        <% if (comment.user._id.equals(user._id)) { %>
-          <!-- Edit Comment Form -->
-          <form class="edit-comment-form" action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
-            <textarea name="text" required><%= comment.text %></textarea>
-            <button type="submit">Edit</button>
-          </form>
-          <!-- Delete Comment Form -->
-          <form class="delete-comment-form" action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-            <button type="submit">Delete</button>
-          </form>
-        <% } %>
+        <!-- Username -->
+        <div class="comment-header">
+          <strong class="comment-username"><%= comment.user.username %></strong>
+          <!-- More Options (Hidden by Default) -->
+          <% if (comment.user && String(comment.user._id) === String(user?._id)) { %>
+            <div class="more-options">
+              <button 
+                class="options-button" 
+                onclick="toggleOptionsMenu('<%= comment._id %>')">
+                &#x22EE; <!-- Unicode for vertical ellipsis -->
+              </button>
+              <div id="options-menu-<%= comment._id %>" class="options-menu" style="display: none;">
+                <button 
+                  class="edit-option" 
+                  onclick="toggleEditForm('<%= comment._id %>')">
+                  Edit
+                </button>
+                <form 
+                  class="delete-comment-form" 
+                  action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=DELETE" 
+                  method="POST">
+                  <button type="submit" class="delete-option">Delete</button>
+                </form>
+              </div>
+            </div>
+          <% } %>
+        </div>
+        <!-- Comment Text -->
+        <p class="comment-text"><%= comment.text %></p>
+        <!-- Edit Form (Hidden by Default) -->
+        <form 
+          id="edit-comment-<%= comment._id %>" 
+          class="edit-comment-form" 
+          action="/destinations/<%= destination._id %>/comments/<%= comment._id %>?_method=PUT" 
+          method="POST" 
+          style="display: none;">
+          <textarea name="text" required><%= comment.text %></textarea>
+          <button type="submit">Save</button>
+        </form>
       </div>
     <% }) %>
   <% } else { %>
     <p>No comments yet.</p>
   <% } %>
-
 </section>
+
+<script>
+  // Toggle the options menu (edit/delete)
+  function toggleOptionsMenu(commentId) {
+    const menu = document.getElementById(`options-menu-${commentId}`);
+    menu.style.display = menu.style.display === 'none' || !menu.style.display ? 'block' : 'none';
+  }
+
+  // Toggle the edit comment form
+  function toggleEditForm(commentId) {
+    const form = document.getElementById(`edit-comment-${commentId}`);
+    form.style.display = form.style.display === 'none' || !form.style.display ? 'block' : 'none';
+  }
+</script>
 
 <!-- Back Button -->
 <div class="back-button-container">
