@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Styling the navigation bar */
+nav {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* Styling the navigation links */
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+}
+
+
+/* Styling the logo */
+.logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* Header Styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 20px 20px; /* Adjust padding to avoid overlap with navbar */
+  background-color: transparent; /* Transparent background */
+  position: relative; /* Makes the header relative to its container */
+  z-index: 10; /* Keep header under navbar */
+  width: 100%;
+  top: -186px;
+  text-align: center;
+  color: white;
+
+}
+
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url('/images/travel.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 160px; /* Adjusted to account for navbar height */
+  color: white;
+  padding-bottom: 80px; /* Padding for footer space */
+}
+
+/* Main Container Styling */
+.container {
+  max-width: 1000px;
+  margin: -117px auto;
+  padding: 68px;
+  text-align: center;
+}
+
+/* Footer Styling */
+.footer {
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 5; /* Footer stays below other content */
+  top: 190px;
+}
+
+/* Footer Social Icons */
+.footer .social-icons a {
+  margin: 0 20px;
+  display: inline-block;
+}
+
+.footer .social-icons img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.footer .social-icons a:hover img {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Styling for the About Section */
+main p {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: left;
+  font-weight: lighter;
+  opacity: 0.9;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer .social-icons a {
+    margin: 0 15px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  main p {
+    font-size: 16px;
+  }
+}

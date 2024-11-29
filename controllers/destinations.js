@@ -95,60 +95,81 @@ router.post('/', isLoggedIn, upload.array('images'), async (req, res) => {
 })
 
 
-// * Update 
+// * Update Route 
+// router.get('/:destinationId/edit', isLoggedIn, async (req, res, next) => {
+//   try {
+//     if (mongoose.Types.ObjectId.isValid(req.params.destinationId)) {
+//       const destination = await Destination.findById(req.params.destinationId);
+//       if (!destination) return next();
 
-router.get('/:destinationId/edit', isLoggedIn, async (req, res, next) => {
-  try {
-    if (mongoose.Types.ObjectId.isValid(req.params.destinationId)) {
-      const destination = await Destination.findById(req.params.destinationId)
-      if (!destination) return next()
+//       // Ensure correct ownership check using destination.user
+//       if (!destination.user.equals(req.session.user._id)) {
+//         return res.redirect(`/destinations/${req.params.destinationId}`);
+//       }
 
-        if (!destination.organiser.equals(req.session.user._id)) {
-          return res.redirect(`/destinations/${req.params.destinationId}`)
-        }
-  
-      return res.render('destinations/edit.ejs', { destination })
-    }
-    next()
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred.</h1>')
-  }
-})
+//       return res.render('destinations/edit.ejs', { destination });
+//     }
+//     next();
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).send('<h1>An error occurred.</h1>');
+//   }
+// });
 
-router.put('/:destinationId', isLoggedIn, async (req, res) => {
-  try {
-    const destinationToUpdate = await Destination.findById(req.params.destinationId)
-    
-    if (destinationToUpdate.organiser.equals(req.session.user._id)) {
-      const updatedDestination = await Destination.findByIdAndUpdate(req.params.destinationId, req.body, { new: true })
-      return res.redirect(`/destinations/${req.params.destinationId}`)
-    }
-    
-    throw new Error('User is not authorised to perform this action')
-    
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred.</h1>')
-  }
-})
+// // * Update Destination
+// router.put('/:destinationId', isLoggedIn, async (req, res) => {
+//   try {
+//     const destinationToUpdate = await Destination.findById(req.params.destinationId);
 
-// * Delete
-router.delete('/:destinationId', async (req, res) => {
-  try {
-    const destinationToDelete = await Destination.findById(req.params.destinationId)
+//     if (!destinationToUpdate) {
+//       req.session.message = 'Destination not found';
+//       return res.redirect('/destinations');
+//     }
 
-    if (destinationToDelete.organiser.equals(req.session.user._id)) {
-      const deletedDestination = await Destination.findByIdAndDelete(req.params.destinationId)
-      return res.redirect('/destinations')
-    }
-    throw new Error('User is not authorised to perform this action')
+//     // Ensure correct ownership check using destination.user
+//     if (!destinationToUpdate.user.equals(req.session.user._id)) {
+//       req.session.message = 'You are not authorized to update this destination';
+//       return res.redirect(`/destinations/${req.params.destinationId}`);
+//     }
 
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred.</h1>')
-  }
-})
+//     const updatedDestination = await Destination.findByIdAndUpdate(req.params.destinationId, req.body, { new: true });
+//     req.session.message = 'Destination updated successfully!';
+//     return res.redirect(`/destinations/${updatedDestination._id}`);
+//   } catch (error) {
+//     console.error('Error updating destination:', error.message);
+//     req.session.message = 'An unexpected error occurred.';
+//     return res.redirect(`/destinations/${req.params.destinationId}`);
+//   }
+// });
+
+// // * Delete Comment
+// router.delete('/:destinationId/comments/:commentId', isLoggedIn, async (req, res) => {
+//   try {
+//     const comment = await Comment.findById(req.params.commentId);
+
+//     if (!comment) {
+//       req.session.message = 'Comment not found';
+//       return res.redirect(`/destinations/${req.params.destinationId}`);
+//     }
+
+//     // Ensure correct ownership check using comment.user
+//     if (!comment.user.equals(req.session.user._id)) {
+//       req.session.message = 'You are not authorized to delete this comment';
+//       return res.redirect(`/destinations/${req.params.destinationId}`);
+//     }
+
+//     await comment.deleteOne();
+
+//     req.session.message = 'Comment deleted successfully!';
+//     return res.redirect(`/destinations/${req.params.destinationId}`);
+//   } catch (error) {
+//     console.error('Error deleting comment:', error.message);
+//     req.session.message = 'An unexpected error occurred.';
+//     return res.redirect(`/destinations/${req.params.destinationId}`);
+//   }
+// });
+
+
 
 // * -- Create Comment
 router.post('/:destinationId/comments', async (req, res, next) => {
@@ -201,34 +222,100 @@ router.post('/:destinationId/comments', async (req, res, next) => {
   }
 });
 
-// * -- Delete Comment
-router.delete('/:destinationId/comments/:commentId', isLoggedIn, async (req, res, next) => {
+
+
+// * -- Edit Comment
+router.put('/:destinationId/comments/:commentId', async (req, res, next) => {
   try {
-    const destination = await Destination.findById(req.params.destinationId)
-    if (!destination) return next()
-    
-    // Locate comment to delete
-    const commentToDelete = destination.comments.id(req.params.commentId)
-    if (!commentToDelete) return next()
-
-    // Ensure user is authorized
-    if (!commentToDelete.user.equals(req.session.user._id)) {
-      throw new Error('User not authorized to perform this action.')
+    // Check if user is logged in
+    if (!req.session.user) {
+      req.session.message = 'You must be logged in to edit a comment';
+      return res.redirect('/log-in');
     }
-    
-    // Delete comment (this does not make a call to the db)
-    commentToDelete.deleteOne()
 
-    // Persist changed to database (this does make a call to the db)
-    await destination.save()
+    // Validate the comment text
+    if (!req.body.text || req.body.text.trim() === '') {
+      req.session.message = 'Comment text cannot be empty';
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    }
+    if (req.body.text.length > 500) {
+      req.session.message = 'Comment text is too long';
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    }
 
-    // Redirect back to show page
-    return res.redirect(`/destinations/${req.params.destinationId}`)
+    // Find the comment
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      req.session.message = 'Comment not found';
+      return next();
+    }
+
+    // Ensure the logged-in user is the owner of the comment
+    if (!comment.user.equals(req.session.user._id)) {
+      req.session.message = 'You are not authorized to edit this comment';
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    }
+
+    // Update the comment
+    comment.text = req.body.text;
+    await comment.save();
+
+    req.session.message = 'Comment updated successfully!';
+    req.session.save(() => {
+      res.redirect(`/destinations/${req.params.destinationId}`);
+    });
   } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred</h1>')
+    console.error('Error editing comment:', error.message);
+    req.session.message = 'An unexpected error occurred. Please try again.';
+    req.session.save(() => {
+      res.redirect(`/destinations/${req.params.destinationId}`);
+    });
   }
-})
+});
+
+
+
+// * -- Delete Comment
+router.delete('/:destinationId/comments/:commentId', async (req, res, next) => {
+  try {
+    // Check if user is logged in
+    if (!req.session.user) {
+      req.session.message = 'You must be logged in to delete a comment';
+      return res.redirect('/log-in');
+    }
+
+    // Find the comment
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      req.session.message = 'Comment not found';
+      return next();
+    }
+
+    // Ensure the logged-in user is the owner of the comment
+    if (!comment.user.equals(req.session.user._id)) {
+      req.session.message = 'You are not authorized to delete this comment';
+      return res.redirect(`/destinations/${req.params.destinationId}`);
+    }
+
+    // Delete the comment
+    await comment.deleteOne();
+
+    req.session.message = 'Comment deleted successfully!';
+    req.session.save(() => {
+      res.redirect(`/destinations/${req.params.destinationId}`);
+    });
+  } catch (error) {
+    console.error('Error deleting comment:', error.message);
+    req.session.message = 'An unexpected error occurred. Please try again.';
+    req.session.save(() => {
+      res.redirect(`/destinations/${req.params.destinationId}`);
+    });
+  }
+});
+
+
+
+
 
 // * Add attending status for a user
 router.post('/:destinationId/attending', isLoggedIn, async (req, res, next) => {

@@ -66,16 +66,10 @@ app.get('/', async (req, res) => {
   }
 });
 
-// * Destinations Page
-// app.get('/destinations', isLoggedIn, (req, res) => {
-//   res.send(`Welcome to your Destinations ${req.session.user.username}.`)
-// })
-// test
+
 app.get('/', isLoggedIn, (req,res) => {
   res.send('views/destinations/index.ejs')
 })
-
-
 
 // * Routers
 app.use('/destinations', destinationsRouter)
@@ -93,6 +87,7 @@ app.get('/about', (req, res) => {
 app.get('*', (req, res) => {
   return res.status(404).render('404.ejs')
 })
+
 
 
 // ! -- Server Connections

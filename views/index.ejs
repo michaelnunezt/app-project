@@ -8,43 +8,88 @@
 </head>
 <body>
   <%- include('./partials/_nav') %>
-  <div class="centred">
-    <% if (user) { %>
-  <h1>The whole world awaits, <%= user.username %>!</h1>
-  <% } else { %>
-    <h1>The whole world awaits!</h1>
-    <% } %>
-  </div>
   <main>
     <div class="card-container">
       <h1 class="headline">Top Vacation Destinations</h1>
-      <div class="card-grid">
+      
+      <!-- Carousel Container -->
+      <div class="carousel-container">
+        <div class="card-grid">
           <div class="card">
-              <img src="/images/Rome.jpg" alt="Rome, Italy">
-              <div class="card-info">
-                  <h2>Rome, Italy</h2>
-              </div>
+              <a href="/auth/sign-up">
+                  <img src="images/Rome.jpg" alt="Rome, Italy">
+                  <div class="card-info">
+                      <h2>Rome, Italy</h2>
+                  </div>
+              </a>
           </div>
           <div class="card">
-              <img src="images/Kerry.png" alt="Kerry, Ireland">
-              <div class="card-info">
-                  <h2>Kerry, Ireland</h2>
-              </div>
+              <a href="/auth/sign-up">
+                  <img src="images/Kerry.png" alt="Kerry, Ireland">
+                  <div class="card-info">
+                      <h2>Kerry, Ireland</h2>
+                  </div>
+              </a>
           </div>
           <div class="card">
-              <img src="images/Sydney.png" alt="Sydney, Australia">
-              <div class="card-info">
-                  <h2>Sydney, Australia</h2>
-              </div>
+              <a href="/auth/sign-up">
+                  <img src="images/Sydney.png" alt="Sydney, Australia">
+                  <div class="card-info">
+                      <h2>Sydney, Australia</h2>
+                  </div>
+              </a>
           </div>
           <div class="card">
-              <img src="images/Paris.png" alt="Paris, France">
-              <div class="card-info">
-                  <h2>Paris, France</h2>
-            </div>
+              <a href="/auth/sign-up">
+                  <img src="images/Paris.png" alt="Paris, France">
+                  <div class="card-info">
+                      <h2>Paris, France</h2>
+                  </div>
+              </a>
+          </div>
+          <div class="card">
+              <a href="/auth/sign-up">
+                  <img src="images/London.png" alt="London, UK">
+                  <div class="card-info">
+                      <h2>London, UK</h2>
+                  </div>
+              </a>
+          </div>
+          <div class="card">
+              <a href="/auth/sign-up">
+                  <img src="images/New_York.png" alt="New York, USA">
+                  <div class="card-info">
+                      <h2>New York, USA</h2>
+                  </div>
+              </a>
+          </div>
+          <div class="card">
+              <a href="/auth/sign-up">
+                  <img src="images/Cape_Town.png" alt="Cape Town, South Africa">
+                  <div class="card-info">
+                      <h2>Cape Town, South Africa</h2>
+                  </div>
+              </a>
+          </div>
+          <div class="card">
+              <a href="/auth/sign-up">
+                  <img src="images/Kyoto.png" alt="Kyoto, Japan">
+                  <div class="card-info">
+                      <h2>Kyoto, Japan</h2>
+                  </div>
+              </a>
+          </div>
+      </div>
         </div>
-    </div> 
+      </div>
+      <!-- Navigation Buttons for Carousel -->
+      <div class="carousel-nav">
+        <button id="prevBtn">Prev</button>
+        <button id="nextBtn">Next</button>
+      </div>
+    </div>
   </main>
+
   <footer class="footer">
     <div class="social-icons">
       <a href="#"><img src="/images/social_icons/Facebook.png" alt="Facebook" /></a>
@@ -53,5 +98,46 @@
       <a href="#"><img src="/images/social_icons/youtube.png" alt="YouTube" /></a>
     </div>
   </footer>
- </body>
+
+  <script>
+    // Carousel functionality for manual scrolling
+    let currentIndex = 0;
+    const cards = document.querySelectorAll('.card');
+    const totalCards = cards.length;
+    const cardWidth = cards[0].offsetWidth + 50; // Width of each card + margin
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const cardGridContainer = document.querySelector('.card-grid');
+
+    function updateCarousel() {
+      cardGridContainer.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < totalCards - 4) {
+        currentIndex++;
+        updateCarousel();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+      }
+    });
+
+    // Optional: Auto-scroll functionality every 5 seconds
+    setInterval(() => {
+      if (currentIndex < totalCards - 4) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      updateCarousel();
+    }, 4000);
+  </script>
+
+</body>
 </html>

@@ -55,7 +55,7 @@ a:hover {
   max-width: 600px;
   height: auto;
   border-radius: 10px;
-  box-shadow: -1px 1px 20px 20px rgba(0, 0, 0, 10);
+  box-shadow: 68px 2px 89px 47px rgba(0, 0, 0, 1);
 }
 
 /* Description Section */
@@ -238,6 +238,69 @@ a:hover {
 .modern-comment-form button:hover {
   background: #3b3b3c;
 }
+/* Styling the Edit Comment Form */
+.edit-comment-form {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background */
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #ccc; /* Border to distinguish the form */
+  transition: background-color 0.3s ease;
+}
+
+/* Styling the Edit Textarea */
+.edit-comment-form textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.5rem;
+  resize: none;
+}
+
+/* Focus effect for the textarea */
+.edit-comment-form textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+}
+
+/* Save Button Styling */
+.edit-comment-form button {
+  background-color: #464b4f; /* Blue background */
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+/* Hover effect for Save button */
+.edit-comment-form button:hover {
+  background-color: #5d5f61;
+}
+
+/* Responsive Design: Make the textarea and button adjust for smaller screens */
+@media (max-width: 600px) {
+  .edit-comment-form {
+    padding: 8px;
+  }
+
+  .edit-comment-form textarea {
+    font-size: 13px;
+    padding: 6px;
+  }
+
+  .edit-comment-form button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
 
 /* Back Link */
 footer {
@@ -277,4 +340,32 @@ footer a:hover {
 .back-button:hover {
   background: linear-gradient(45deg, #8d8f91, #717579);
   transform: translateY(-2px);
+}
+
+destination-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.btn-edit, .btn-delete {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #4CAF50; /* Green */
+}
+
+.btn-delete {
+  background-color: #f44336; /* Red */
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
 }

@@ -32,11 +32,13 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: transparent; /* Set this to transparent if you want to show the background image */
-  position: absolute;
-  width: 100%;
+  /* background-color: rgba(0, 0, 0, 0.6); Semi-transparent background for visibility */
+  position: fixed; /* Keep it at the top */
+  width: 100%; /* Full width */
   top: 0;
+  z-index: 10; /* Ensure it appears above other elements */
 }
+
 
 body {
   background-image: url(/images/travel.jpg);
@@ -45,23 +47,26 @@ body {
   font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
-  align-items:flex-start;
+  align-items: center;
   justify-content: center;
+  /* height: 100vh; */
   height: 100vh;
   margin: 0;
 }
-h1 {
-  font-size: 1.6em;
+/* h1 {
+  font-size: 3.6em;
   color: white;
-  margin-bottom: -0.5rem;
-  text-align: center;  /* Centers the heading text */
-}
+  margin-bottom: -2.5rem;
+  text-align: center;  
+} */
 
 /* text inside the cards */
 h2 {
+  font-size: 1.3rem;
   color: white;
-  margin-bottom: 1.25rem;
+  /* margin-bottom: 1.25rem; */
   text-align: center;  /* Centers the subheading text */
+  text-decoration: underline;
 }
 
 
@@ -73,52 +78,86 @@ p {
 }
 
 
-.headline {
-  font-size: 2.5em;
-  color: #fff;
-  margin-bottom: 30px;
+h1, .headline {
+  font-size: 2em; /* Larger font size for emphasis */
+  color: #ffffff; /* Ensure it contrasts with the background */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Add subtle glow for visibility */
+  margin-bottom: 1rem; /* Adjust spacing */
+  /* margin-top: 113px; Align closely with the top content */
+  margin-top: 44px;
+  text-align: center; /* Center the text horizontally */
+  font-weight: bold; /* Make the headline bold */
+  line-height: 1.2; /* Adjust line spacing for clarity */
 }
-.card-container {
-  /* display:flex;
-  flex-direction: column;
-  align-items: center; */
-  text-align: center;
-  padding: 40px 20px;
+.carousel-container {
+  display: flex;
+  overflow: hidden; /* Prevents overflow of the content */
+  width: 100%; /* Ensures it spans the full width of the parent container */
+  max-width: 1200px; /* Optional: Limits the maximum width for better layout */
+  margin: 0 auto 20px; /* Centers the carousel and adds spacing below */
+  padding: 0 15px; /* Adds padding to prevent edge clipping */
+  box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+/* Buttons for manual navigation */
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: -73px;
+}
+
+.carousel-nav button {
+  padding: 10px 15px;
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.carousel-nav button:hover {
+  background-color: #333333;
 }
 
 .card-grid {
   display: flex;
-  justify-content:center;
   gap: 30px;
-  flex-wrap: nowrap;
-  padding: 30px;
-  border: solid 3px #000;
-
+  flex-wrap: nowrap; /* Prevents wrapping of cards */
+  /* transition: transform 0.5s ease; */
+  padding: 128px;
 }
 
 /* Card styles */
 .card {
-  width: 250px;
-  height: 350px;
+  flex: 0 0 calc(25% - 30px); /* 4 cards per view, including gaps */
+  max-width: calc(25% - 30px); /* Matches the flex-basis */
+  min-width: 130px; /* Adjust the width of each card */
+  box-sizing: border-box;
+  width: 30px;
+  height: 320px;
   text-align: center;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.093);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  backdrop-filter: blur(8px);
 }
 
 .card img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: auto;
+  border-radius: 8px;
 }
 
 .card-info {
-  position:absolute;
-  width: 18%;
-  background: rgba(0, 0, 0, 0.653);
+  font-size: 1.2em;
+  margin-top: 16px;
+  width: 100%;
   color: #fff;
-  padding: 10px;
-  text-align: justify;
+  background: rgba(0, 0, 0, -0.347);
+  padding: 17px;
+  text-align: center;
 }
 
 .card:hover {
@@ -139,13 +178,13 @@ p {
 } */
 
 /* Make the navigation bar fixed */
-header {
+/* header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-}
+} */
 /* ------ */
 /* Modal Container */
 .account-modal-container {
@@ -331,13 +370,13 @@ button, input, optgroup, select, textarea {
 button {
   border-radius: 0;
 }
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
 }
 *, :after, :before {
   box-sizing: border-box;
-}
+} */
 user agent stylesheet
 button {
   appearance: auto;
@@ -413,9 +452,9 @@ button {
 
 form {
   background-color: rgba(0, 0, 0, 0.7); /* Transparent background */
-  padding: 50px;
-  border-radius: 15px;
-  width: 500px;
+  padding: 55px;
+  border-radius: 65px;
+  width: 517px;
   position: relative;
   justify-content: center;
   align-items: center;
@@ -452,11 +491,6 @@ button.btn:hover {
   background-color: #333633;
 }
 
-
-a.link:hover {
-  color: rgb(35, 148, 93);
-}
-
 /* Footer */
 .footer {
   background-color: rgba(51, 51, 51, 0.337); /* Semi-transparent black */
@@ -464,6 +498,7 @@ a.link:hover {
   padding: 20px;
   text-align: center;
   cursor: pointer;
+  margin-top: 110px;
   
 }
 
@@ -478,3 +513,6 @@ a.link:hover {
   
 }
 
+.card:hover {
+  transform: scale(1.05);
+}
