@@ -73,7 +73,7 @@ router.get('/:destinationId', async (req, res, next) => {
 
 
 // * Create Route
-router.post('/', isLoggedIn, upload.array('images'), async (req, res) => {
+router.post('/', isLoggedIn, async (req, res) => {
   try {
     console.log('Session User:', req.session.user)
     if (req.files) {
@@ -314,58 +314,6 @@ router.delete('/:destinationId/comments/:commentId', async (req, res, next) => {
 });
 
 
-
-
-
-// * Add attending status for a user
-router.post('/:destinationId/attending', isLoggedIn, async (req, res, next) => {
-  try {
-    // Find the destination the user wants to attend
-    const destination = await Destination.findById(req.params.destinationId)
-    // Send 404 if destination not found
-    if (!destination) return next()
-    
-    // Add logged in user's id into the attendees array
-    destination.attendees.push(req.session.user._id)
-
-    // Save the destination to persist to the DB
-    await destination.save()
-
-    // Redirect back to the show page
-    return res.redirect(`/destinations/${req.params.destinationId}`)
-  } catch (error) {
-    console.log(error)
-    req.session.message = 'Failed to update attending status'
-    req.session.save(() => {
-      return res.redirect(`/destinations/${req.params.destinationId}`)
-    })
-  }
-})
-
-// * Remove attending status for a user
-router.delete('/:destinationId/attending', isLoggedIn, async (req, res, next) => {
-  try {
-    // Find the destination the user wants to remove their attending status
-    const destination = await Destination.findById(req.params.destinationId)
-    // Send 404 if destination not found
-    if (!destination) return next()
-    
-    // remove logged in user's id from the attendees array
-    destination.attendees.pull(req.session.user._id)
-
-    // Save the destination to persist to the DB
-    await destination.save()
-
-    // Redirect back to the show page
-    return res.redirect(`/destinations/${req.params.destinationId}`)
-  } catch (error) {
-    console.log(error)
-    req.session.message = 'Failed to update attending status'
-    req.session.save(() => {
-      return res.redirect(`/destination/${req.params.destinationId}`)
-    })
-  }
-})
 
 router.get('/about', (req, res) => {
   try {

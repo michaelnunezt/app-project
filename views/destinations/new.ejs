@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -12,35 +12,35 @@
     <h1>Create a New Destination!</h1>
     <form class="form" action="/destinations" method="POST" enctype="multipart/form-data">
 
-      <!-- City Field -->
+      <City Field 
       <label for="city">City:</label>
       <input type="text" name="city" id="city" value="<%= fieldValues.city || '' %>" required />
       <% if (errors.city) { %>
         <p><small class="error"><%= errors.city.message %></small></p>
       <% } %>
 
-      <!-- Country Field -->
+      Country Field
       <label for="country">Country:</label>
       <input type="text" name="country" id="country" value="<%= fieldValues.country || '' %>" required />
       <% if (errors.country) { %>
         <p><small class="error"><%= errors.country.message %></small></p>
       <% } %>
 
-      <!-- Description Field -->
+      Description Field
       <label for="description">Description:</label>
       <textarea name="description" id="description" required><%= fieldValues.description || '' %></textarea>
       <% if (errors.description) { %>
         <p><small class="error"><%= errors.description.message %></small></p>
       <% } %>
 
-      <!-- Population Field -->
+      Population Field
       <label for="population">Population:</label>
       <input type="number" name="population" id="population" value="<%= fieldValues.population || '' %>" />
       <% if (errors.population) { %>
         <p><small class="error"><%= errors.population.message %></small></p>
       <% } %>
 
-      <!-- Date Field -->
+      Date Field
       <label for="date">Date:</label>
       <input type="date" name="date" id="date" value="<%= fieldValues.date || '' %>" required />
       <% if (errors.date) { %>
@@ -52,9 +52,9 @@
       <input type="file" name="images" id="images" accept="image/*" multiple />
       <% if (errors.images) { %>
         <p><small class="error"><%= errors.images.message %></small></p>
-      <% } %>
+      <% } %> 
 
-      <!-- Points of Interest -->
+      Points of Interest
       <fieldset>
         <legend>Points of Interest</legend>
         <div id="poi-container">
@@ -71,13 +71,13 @@
         <button type="button" id="add-poi" class="btn">Add Point of Interest</button>
       </fieldset>
 
-      <!-- Submit Button -->
+      Submit Button
       <button class="btn" type="submit">Create Destination</button>
       <a class="link" href="/">Back to Destinations</a>
     </form>
   </main>
 
-  <!-- Script to Dynamically Add Points of Interest -->
+  Script to Dynamically Add Points of Interest
   <script>
     const poiContainer = document.getElementById('poi-container');
     const addPoiButton = document.getElementById('add-poi');
@@ -97,4 +97,4 @@
     });
   </script>
 </body>
-</html>
+</html> -->

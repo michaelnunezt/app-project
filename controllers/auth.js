@@ -116,16 +116,16 @@ router.get('/log-out', (req, res) => {
 
 
 // ! -- Profile Section
-router.get('/profile', isLoggedIn, async (req, res) => {
-  try {
-    const userProfile = await User.findById(req.session.user._id)
-    console.log(userProfile)
-    return res.render('auth/profile.ejs', { profile: userProfile })
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('<h1>An error occurred.</h1>')
-  }
-})
+// router.get('/profile', isLoggedIn, async (req, res) => {
+//   try {
+//     const userProfile = await User.findById(req.session.user._id)
+//     console.log(userProfile)
+//     return res.render('auth/profile.ejs', { profile: userProfile })
+//   } catch (error) {
+//     console.log(error)
+//     return res.status(500).send('<h1>An error occurred.</h1>')
+//   }
+// })
 
 
 

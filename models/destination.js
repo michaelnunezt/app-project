@@ -6,7 +6,6 @@ const destinationSchema = new mongoose.Schema({
   description: { type: String },
   population: { type: Number },
   date: { type: Date, required: ['Add a date', true] },
-  attendees: [{ type: mongoose.Types.ObjectId, ref: 'User'}],
   images: [String], 
   isPopular: Boolean,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

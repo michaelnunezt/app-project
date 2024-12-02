@@ -28,7 +28,7 @@ const port = 3000 || process.env.port
 // ! -- Middleware
 app.use(methodOverride('_method')) // this line will convert any request with a ?_method query param into the specified HTTP verb
 app.use(express.urlencoded({ extended: false }))
-app.use('/uploads', express.static('uploads'))
+// app.use('/uploads', express.static('uploads'))
 app.use(express.static('public'))
 app.use(morgan('dev'))
 app.use(session({
