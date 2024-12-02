@@ -24,7 +24,6 @@ const { Destination } = require('../../models/destination.js')
 
 // ! -- Variables
 const app = express()
-const port = 3000 || process.env.port
 
 // ! -- Middleware
 app.use(methodOverride('_method')) // this line will convert any request with a ?_method query param into the specified HTTP verb
