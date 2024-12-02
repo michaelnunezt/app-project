@@ -41,7 +41,7 @@ header {
 /* Body Styling */
 body {
   font-family: 'Arial', sans-serif;
-  background-image: url('/images/travel.jpg'); /* Background image */
+  background-image: url('https://images.squarespace-cdn.com/content/v1/5be8b0bb25bf0268d4805c88/217a42a8-9ba8-41ab-8549-d99bf8f7bfd2/DSC02765-Edit-Edit.jpg'); /* Background image */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
