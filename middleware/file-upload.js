@@ -1,12 +1,12 @@
-const multer  = require('multer')
+// const multer  = require('multer')
 
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname.replace(/ /g, '-'))
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: 'uploads/',
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + '-' + file.originalname.replace(/ /g, '-'))
+//   }
+// })
 
-const upload = multer({ storage: storage })
+// const upload = multer({ storage: storage })
 
-module.exports = upload
+// module.exports = upload
