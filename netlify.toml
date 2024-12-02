@@ -1,15 +1,7 @@
 [functions]
   external_node_modules = ["express", "ejs"]
   node_bundler = "esbuild"
-  included_files = 
-  [
-    "views/**",
-    "public/**",
-    "models/**",
-    "controllers/**",
-    "middleware/**",
-    "node_modules/**"
-    ]
+  included_files = ["views/**","public/**","models/**","controllers/**","middleware/**","node_modules/**"]
 
 # Allow direct access to static images
 [[redirects]]
