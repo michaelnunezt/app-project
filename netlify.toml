@@ -1,7 +1,7 @@
 [functions]
   external_node_modules = ["express", "ejs"]
   node_bundler = "esbuild"
-  included_files = ["views/**", "public/**", "middleware/is-logged-in.js", "middleware/pass-user-to-view.js"]
+  included_files = ["views/**", "public/**"]
 
 # Allow direct access to static images
 [[redirects]]
@@ -15,4 +15,3 @@
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
- 

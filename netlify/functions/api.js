@@ -10,16 +10,16 @@ require('dotenv/config')
 
 
 // ! Middleware Functions
-const isLoggedIn = require('./middleware/is-logged-in.js')
-const passUserToView = require('./middleware/pass-user-to-view.js')
-const allowErrors = require('./middleware/allow-errors.js')
-const initFlashMessages = require('./middleware/init-flash-messages.js')
+const isLoggedIn = require('../../middleware/is-logged-in.js')
+const passUserToView = require('../../middleware/pass-user-to-view.js')
+const allowErrors = require('../../middleware/allow-errors.js')
+const initFlashMessages = require('../../middleware/init-flash-messages.js')
 
 
 // * -- Routers/Controllers
-const destinationsRouter = require('./controllers/destinations.js')
-const authRouter = require('./controllers/auth.js')
-const { Destination } = require('./models/destination.js')
+const destinationsRouter = require('../../controllers/destinations.js')
+const authRouter = require('../../controllers/auth.js')
+const { Destination } = require('../../models/destination.js')
 
 
 // ! -- Variables
