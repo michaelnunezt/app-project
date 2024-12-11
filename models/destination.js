@@ -8,7 +8,7 @@ const destinationSchema = new mongoose.Schema({
   date: { type: Date, required: ['Add a date', true] },
   images: [String], 
   isPopular: Boolean,
-  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  // user: { type: mongoose.Schema.Types.  ref: 'User', required: true },
   user: { type: String, required: true },
   pointsOfInterest: [
     {
